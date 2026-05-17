@@ -10,6 +10,9 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- LEAFLET MAP -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
   <style>
 
     *{
@@ -128,24 +131,56 @@
       line-height:1.6;
     }
 
-    /* MAPA */
-
     .mapa{
       padding:80px 40px;
-      text-align:center;
       background:white;
+      text-align:center;
     }
 
     .mapa h2{
       font-size:45px;
-      margin-bottom:30px;
+      margin-bottom:20px;
     }
 
-    .mapa iframe{
+    .leyenda{
+      display:flex;
+      justify-content:center;
+      gap:30px;
+      margin-bottom:25px;
+      flex-wrap:wrap;
+    }
+
+    .item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:600;
+    }
+
+    .color{
+      width:18px;
+      height:18px;
+      border-radius:50%;
+    }
+
+    .rojo{
+      background:red;
+    }
+
+    .azul{
+      background:blue;
+    }
+
+    .verde{
+      background:green;
+    }
+
+    #map{
+      height:600px;
       width:90%;
-      height:500px;
-      border:none;
+      margin:auto;
       border-radius:25px;
+      overflow:hidden;
       box-shadow:0 10px 30px rgba(0,0,0,0.1);
     }
 
@@ -191,20 +226,101 @@
 
     <p>
       Anticrético, alquiler o compra. Explora propiedades en Cochabamba
-      con un mapa interactivo, filtros inteligentes y agentes verificados.
+      con un mapa interactivo y propiedades verificadas.
     </p>
 
   </section>
 
   <section class="mapa" id="mapa">
 
-    <h2>Mapa interactivo de Cochabamba</h2>
+    <h2>Mapa interactivo</h2>
 
-    <iframe 
-      src="https://www.google.com/maps?q=Cochabamba,Bolivia&output=embed">
-    </iframe>
+    <div class="leyenda">
+
+      <div class="item">
+        <div class="color rojo"></div>
+        Anticrético
+      </div>
+
+      <div class="item">
+        <div class="color azul"></div>
+        Alquiler
+      </div>
+
+      <div class="item">
+        <div class="color verde"></div>
+        Venta
+      </div>
+
+    </div>
+
+    <div id="map"></div>
 
   </section>
+
+  <!-- LEAFLET -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+
+    // MAPA
+
+    const map = L.map('map').setView([-17.3935, -66.1570], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'PROP CODE'
+    }).addTo(map);
+
+    // ICONOS
+
+    const rojo = new L.Icon({
+      iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+      shadowUrl:'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      iconSize:[25,41],
+      iconAnchor:[12,41]
+    });
+
+    const azul = new L.Icon({
+      iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+      shadowUrl:'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      iconSize:[25,41],
+      iconAnchor:[12,41]
+    });
+
+    const verde = new L.Icon({
+      iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+      shadowUrl:'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      iconSize:[25,41],
+      iconAnchor:[12,41]
+    });
+
+    // PINES
+
+    L.marker([-17.3835, -66.1500], {icon: rojo})
+      .addTo(map)
+      .bindPopup("Anticrético en Cala Cala");
+
+    L.marker([-17.4000, -66.1700], {icon: azul})
+      .addTo(map)
+      .bindPopup("Departamento en alquiler");
+
+    L.marker([-17.3700, -66.1400], {icon: verde})
+      .addTo(map)
+      .bindPopup("Casa en venta");
+
+    L.marker([-17.3950, -66.1300], {icon: rojo})
+      .addTo(map)
+      .bindPopup("Anticrético zona norte");
+
+    L.marker([-17.4100, -66.1600], {icon: azul})
+      .addTo(map)
+      .bindPopup("Alquiler temporal");
+
+    L.marker([-17.3850, -66.1800], {icon: verde})
+      .addTo(map)
+      .bindPopup("Terreno en venta");
+
+  </script>
 
 </body>
 </html>
