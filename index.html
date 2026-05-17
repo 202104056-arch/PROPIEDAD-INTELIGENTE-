@@ -241,7 +241,7 @@ nav a{
   background:green;
 }
 
-/* CARD GOOGLE MAPS */
+/* CARD */
 
 .card-propiedad{
   position:fixed;
@@ -252,9 +252,7 @@ nav a{
   border-radius:28px;
   overflow:hidden;
   box-shadow:0 15px 45px rgba(0,0,0,0.25);
-
   z-index:99999;
-
   display:none;
 }
 
@@ -348,29 +346,77 @@ nav a{
 }
 
 .botones-card{
-  display:flex;
-  gap:12px;
   margin-top:25px;
 }
 
 .btn-favorito{
-  flex:1;
-  padding:14px;
-  border:none;
-  border-radius:14px;
-  background:#f1f5f9;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.btn-ver{
-  flex:1;
+  width:100%;
   padding:14px;
   border:none;
   border-radius:14px;
   background:#1976ff;
   color:white;
   font-weight:700;
+  cursor:pointer;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999999;
+}
+
+.modal-contenido{
+  width:420px;
+  background:white;
+  border-radius:28px;
+  padding:35px;
+  text-align:center;
+}
+
+.modal-contenido h2{
+  font-size:32px;
+  margin-bottom:12px;
+}
+
+.texto-modal{
+  color:#666;
+  margin-bottom:25px;
+}
+
+.input-modal{
+  width:100%;
+  padding:16px;
+  margin-bottom:16px;
+  border:1px solid #d1d5db;
+  border-radius:14px;
+  font-size:15px;
+  outline:none;
+}
+
+.btn-modal{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:14px;
+  background:#1976ff;
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.cerrar-modal{
+  margin-top:15px;
+  background:none;
+  border:none;
+  color:#666;
   cursor:pointer;
 }
 
@@ -568,15 +614,47 @@ html{
 
     <div class="botones-card">
 
-      <button class="btn-favorito">
-        ❤ Guardar
-      </button>
-
-      <button class="btn-ver">
-        Ver propiedad
+      <button class="btn-favorito" onclick="abrirFormulario()">
+        ❤ Guardar en favoritos
       </button>
 
     </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+  <div class="modal-contenido">
+
+    <h2>Guardar propiedad</h2>
+
+    <p class="texto-modal">
+      Regístrate para guardar esta propiedad en favoritos
+    </p>
+
+    <input 
+      type="text"
+      placeholder="Nombre completo"
+      class="input-modal"
+    >
+
+    <input 
+      type="email"
+      placeholder="Correo electrónico"
+      class="input-modal"
+    >
+
+    <button class="btn-modal">
+      Guardar favorito
+    </button>
+
+    <button class="cerrar-modal" onclick="cerrarFormulario()">
+      Cerrar
+    </button>
 
   </div>
 
@@ -594,7 +672,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:'PROP CODE'
 }).addTo(map);
 
-/* CREAR PINES */
+/* PINES */
 
 function crearPin(colorClase){
 
@@ -614,6 +692,22 @@ const verde = crearPin('pin-verde');
 
 const card = document.getElementById("card");
 
+/* MODAL */
+
+const modal = document.getElementById("modal");
+
+function abrirFormulario(){
+
+  modal.style.display = "flex";
+
+}
+
+function cerrarFormulario(){
+
+  modal.style.display = "none";
+
+}
+
 /* MARKERS */
 
 L.marker([-17.3835, -66.1500], {icon: rojo})
@@ -621,7 +715,6 @@ L.marker([-17.3835, -66.1500], {icon: rojo})
 .on('click', function(){
 
   card.style.display = "block";
-  card.style.zIndex = "99999";
 
 });
 
@@ -630,7 +723,6 @@ L.marker([-17.4000, -66.1700], {icon: azul})
 .on('click', function(){
 
   card.style.display = "block";
-  card.style.zIndex = "99999";
 
 });
 
@@ -639,7 +731,6 @@ L.marker([-17.3700, -66.1400], {icon: verde})
 .on('click', function(){
 
   card.style.display = "block";
-  card.style.zIndex = "99999";
 
 });
 
