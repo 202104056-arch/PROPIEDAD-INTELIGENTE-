@@ -536,66 +536,15 @@ body{
 
 <!-- CARD -->
 
-<div class="card-propiedad" id="card">
-
-  <div class="favorito">
-    ♡
-  </div>
-
-  <img 
-    src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200"
-  >
-
-  <div class="contenido-card">
-
-    <h2 class="precio">
-      $120.000
-    </h2>
-
-    <div class="interes">
-      🔥 84 personas guardaron esta propiedad
-    </div>
-
-    <div class="info-grid">
-
-      <div class="info-item">
-        🏠 Casa
-      </div>
-
-      <div class="info-item">
-        📐 240 m²
-      </div>
-
-      <div class="info-item">
-        🛏 3 habitaciones
-      </div>
-
-      <div class="info-item">
-        🚿 2 baños
-      </div>
-
-    </div>
-
-    <p class="descripcion">
-
-      Hermosa casa moderna ubicada en Cala Cala,
-      cerca de supermercados y transporte.
-
-    </p>
-
-    <button class="btn-favorito">
-      ❤ Guardar en favoritos
-    </button>
-
-  </div>
-
-</div>
+<div class="card-propiedad" id="card"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-/* MAPA */
+/* =========================
+   MAPA
+========================= */
 
 const map = L.map('map').setView(
   [-17.3935, -66.1570],
@@ -608,7 +557,9 @@ L.tileLayer(
   attribution:'PROP CODE'
 }).addTo(map);
 
-/* PINES */
+/* =========================
+   PINES
+========================= */
 
 function crearPin(colorClase){
 
@@ -628,15 +579,95 @@ const rojo = crearPin('pin-rojo');
 const azul = crearPin('pin-azul');
 const verde = crearPin('pin-verde');
 
-/* CARD */
+/* =========================
+   CARD
+========================= */
 
 const card = document.getElementById("card");
 
-/* CONTROL */
+/* =========================
+   PROPIEDADES
+========================= */
+
+const propiedades = {
+
+  pin1:{
+
+    precio:"$120.000",
+
+    interes:"🔥 84 personas guardaron esta propiedad",
+
+    tipo:"🏠 Casa",
+
+    superficie:"📐 240 m²",
+
+    habitaciones:"🛏 3 habitaciones",
+
+    baños:"🚿 2 baños",
+
+    descripcion:
+    "Hermosa casa moderna ubicada en Cala Cala, cerca de supermercados y transporte.",
+
+    imagen:
+    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200"
+
+  },
+
+  pin2:{
+
+    precio:"$3.500",
+
+    interes:"🔥 46 personas guardaron esta propiedad",
+
+    tipo:"🏢 Departamento",
+
+    superficie:"📐 120 m²",
+
+    habitaciones:"🛏 2 habitaciones",
+
+    baños:"🚿 1 baño",
+
+    descripcion:
+    "Departamento moderno en alquiler con excelente iluminación y seguridad.",
+
+    imagen:
+    "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200"
+
+  },
+
+  pin3:{
+
+    precio:"$95.000",
+
+    interes:"🔥 62 personas guardaron esta propiedad",
+
+    tipo:"🏠 Casa",
+
+    superficie:"📐 300 m²",
+
+    habitaciones:"🛏 4 habitaciones",
+
+    baños:"🚿 3 baños",
+
+    descripcion:
+    "Casa amplia en Tiquipaya con jardín y áreas verdes.",
+
+    imagen:
+    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200"
+
+  }
+
+};
+
+/* =========================
+   CONTROL CARD
+========================= */
 
 let pinActivo = null;
 
-function manejarCard(pinId){
+function mostrarCard(pinId){
+
+  /* SI APRIETA EL MISMO PIN */
 
   if(pinActivo === pinId){
 
@@ -644,17 +675,81 @@ function manejarCard(pinId){
 
     pinActivo = null;
 
-  }else{
-
-    card.style.display = "block";
-
-    pinActivo = pinId;
+    return;
 
   }
 
+  /* DATOS */
+
+  const propiedad = propiedades[pinId];
+
+  /* CONTENIDO */
+
+  card.innerHTML = `
+
+    <div class="favorito">
+      ♡
+    </div>
+
+    <img src="${propiedad.imagen}">
+
+    <div class="contenido-card">
+
+      <h2 class="precio">
+        ${propiedad.precio}
+      </h2>
+
+      <div class="interes">
+        ${propiedad.interes}
+      </div>
+
+      <div class="info-grid">
+
+        <div class="info-item">
+          ${propiedad.tipo}
+        </div>
+
+        <div class="info-item">
+          ${propiedad.superficie}
+        </div>
+
+        <div class="info-item">
+          ${propiedad.habitaciones}
+        </div>
+
+        <div class="info-item">
+          ${propiedad.baños}
+        </div>
+
+      </div>
+
+      <p class="descripcion">
+
+        ${propiedad.descripcion}
+
+      </p>
+
+      <button class="btn-favorito">
+
+        ❤ Guardar en favoritos
+
+      </button>
+
+    </div>
+
+  `;
+
+  /* MOSTRAR */
+
+  card.style.display = "block";
+
+  pinActivo = pinId;
+
 }
 
-/* MARKERS */
+/* =========================
+   MARKERS
+========================= */
 
 L.marker(
 [-17.3835, -66.1500],
@@ -663,7 +758,7 @@ L.marker(
 .addTo(map)
 .on('click', function(){
 
-  manejarCard("pin1");
+  mostrarCard("pin1");
 
 });
 
@@ -674,7 +769,7 @@ L.marker(
 .addTo(map)
 .on('click', function(){
 
-  manejarCard("pin2");
+  mostrarCard("pin2");
 
 });
 
@@ -685,7 +780,7 @@ L.marker(
 .addTo(map)
 .on('click', function(){
 
-  manejarCard("pin3");
+  mostrarCard("pin3");
 
 });
 
