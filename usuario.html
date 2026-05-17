@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mapa Moderno</title>
+<title>PROP CODE</title>
 
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css"/>
@@ -16,142 +16,286 @@ href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:Arial;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-  background:#f4f4f4;
+  display:flex;
+  background:#f5f5f5;
 }
 
-.container{
-  width:95%;
-  margin:auto;
-  padding:20px;
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+
+  width:230px;
+  height:100vh;
+  background:white;
+
+  padding:30px 20px;
+
+  box-shadow:0 0 10px rgba(0,0,0,.1);
 }
 
-h1{
-  text-align:center;
-  margin-bottom:30px;
-  font-size:50px;
-  color:#0d1b52;
+.logo{
+
+  font-size:45px;
+  font-weight:bold;
+
+  margin-bottom:50px;
 }
 
-/* FILTROS */
+.logo span{
+  color:#2563eb;
+}
+
+.menu{
+
+  display:flex;
+  flex-direction:column;
+  gap:35px;
+}
+
+.menu a{
+
+  text-decoration:none;
+  color:#334155;
+
+  font-size:22px;
+  font-weight:bold;
+
+  transition:.3s;
+}
+
+.menu a:hover{
+
+  color:#2563eb;
+  transform:translateX(5px);
+}
+
+/* ================= MAIN ================= */
+
+.main{
+
+  flex:1;
+  padding:25px;
+}
+
+/* ================= FILTROS ================= */
+
 .filtros{
+
   display:flex;
   gap:15px;
-  justify-content:center;
+
   flex-wrap:wrap;
-  margin-bottom:20px;
+
+  margin-bottom:25px;
 }
 
+.filtros input,
 .filtros select,
 .filtros button{
 
   padding:15px;
-  border-radius:12px;
-  border:1px solid #ccc;
-  min-width:180px;
-  font-size:16px;
+
+  border-radius:14px;
+
+  border:1px solid #d1d5db;
+
+  min-width:170px;
+
+  font-size:15px;
+}
+
+.filtros input:focus,
+.filtros select:focus{
+
+  outline:none;
+  border:1px solid #2563eb;
 }
 
 .filtros button{
+
   background:#2563eb;
   color:white;
+
   border:none;
+
   cursor:pointer;
+
+  font-weight:bold;
+
+  transition:.3s;
 }
 
-/* CONTENIDO */
-.content{
-  display:flex;
-  gap:20px;
+.filtros button:hover{
+
+  background:#1d4ed8;
 }
 
-/* MAPA */
+/* ================= MAPA ================= */
+
+.map-container{
+
+  position:relative;
+}
+
 #map{
-  width:75%;
-  height:650px;
-  border-radius:20px;
+
+  height:82vh;
+
+  border-radius:25px;
+
+  overflow:hidden;
 }
 
-/* CARD */
+/* ================= TARJETA ================= */
+
 .card{
-  width:25%;
+
+  position:absolute;
+
+  top:20px;
+  right:20px;
+
+  width:350px;
+
   background:white;
-  border-radius:20px;
+
+  border-radius:25px;
+
   overflow:hidden;
-  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+  display:none;
+
+  z-index:1000;
 }
 
 .card img{
+
   width:100%;
   height:220px;
+
   object-fit:cover;
 }
 
 .card-body{
+
   padding:20px;
 }
 
-.precio{
-  font-size:42px;
-  color:#2563eb;
+.tipo{
+
+  display:inline-block;
+
+  padding:8px 15px;
+
+  border-radius:20px;
+
+  background:#dcfce7;
+
+  color:green;
+
   font-weight:bold;
+}
+
+.precio{
+
+  font-size:42px;
+
+  color:#2563eb;
+
+  font-weight:bold;
+
   margin:15px 0;
 }
 
-.tipo{
-  background:#dcfce7;
-  color:green;
-  display:inline-block;
-  padding:8px 15px;
-  border-radius:20px;
-}
-
 .detalles{
-  margin-top:20px;
+
   display:grid;
+
   grid-template-columns:1fr 1fr;
+
   gap:10px;
+
+  margin:20px 0;
 }
 
 .detalle{
-  background:#f3f4f6;
+
+  background:#f1f5f9;
+
   padding:15px;
-  border-radius:10px;
+
+  border-radius:12px;
 }
 
 .descripcion{
-  margin-top:20px;
-  color:#666;
+
+  color:#64748b;
+
   line-height:1.6;
+
+  margin-top:15px;
 }
 
 .btn{
+
   width:100%;
-  padding:15px;
-  border:none;
-  border-radius:12px;
-  background:#2563eb;
-  color:white;
+
   margin-top:20px;
+
+  padding:15px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#2563eb;
+
+  color:white;
+
+  font-weight:bold;
+
   cursor:pointer;
+
+  transition:.3s;
 }
 
-/* RESPONSIVE */
-@media(max-width:1000px){
+.btn:hover{
 
-  .content{
+  background:#1d4ed8;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1200px){
+
+  body{
     flex-direction:column;
   }
 
-  #map{
+  .sidebar{
+
     width:100%;
+    height:auto;
+  }
+
+  #map{
+    height:70vh;
   }
 
   .card{
+
+    position:relative;
+
     width:100%;
+
+    top:20px;
+    right:0;
   }
 
 }
@@ -161,85 +305,193 @@ h1{
 
 <body>
 
-<div class="container">
+<!-- ================= SIDEBAR ================= -->
 
-<h1>Mapa interactivo</h1>
+<div class="sidebar">
 
-<!-- FILTROS -->
-<div class="filtros">
+  <div class="logo">
+    PROP <span>CODE</span>
+  </div>
 
-<select id="tipo">
-  <option value="todos">Tipo</option>
-  <option value="venta">Venta</option>
-  <option value="alquiler">Alquiler</option>
-  <option value="anticretico">Anticrético</option>
-</select>
+  <div class="menu">
 
-<select id="zona">
-  <option value="todas">Zona</option>
-  <option value="centro">Centro</option>
-  <option value="norte">Norte</option>
-  <option value="sur">Sur</option>
-</select>
+    <a href="#">🏠 Inicio</a>
 
-<button onclick="filtrar()">
-Buscar
-</button>
+    <a href="#">❤️ Favoritos</a>
+
+    <a href="#">📍 Mapa</a>
+
+    <a href="#">⚖️ Comparador</a>
+
+    <a href="#">👤 Perfil</a>
+
+  </div>
 
 </div>
 
-<div class="content">
+<!-- ================= CONTENIDO ================= -->
 
-<!-- MAPA -->
-<div id="map"></div>
+<div class="main">
 
-<!-- CARD DERECHA -->
-<div class="card">
+  <!-- FILTROS -->
 
-<img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop">
+  <div class="filtros">
 
-<div class="card-body">
+    <input type="text" placeholder="📍 Ubicación">
 
-<div class="tipo">Venta</div>
+    <!-- NUEVO FILTRO ZONA -->
+    <select id="zona">
 
-<div class="precio">
-$120.000
-</div>
+      <option value="todas">
+        Zona
+      </option>
 
-<div class="detalles">
+      <option value="norte">
+        Norte
+      </option>
 
-<div class="detalle">
-🛏 3 habitaciones
-</div>
+      <option value="sur">
+        Sur
+      </option>
 
-<div class="detalle">
-🚿 2 baños
-</div>
+      <option value="centro">
+        Centro
+      </option>
 
-<div class="detalle">
-📐 240 m²
-</div>
+      <option value="oeste">
+        Oeste
+      </option>
 
-<div class="detalle">
-🚗 Garaje
-</div>
+      <option value="este">
+        Este
+      </option>
 
-</div>
+    </select>
 
-<p class="descripcion">
-Hermosa casa moderna ubicada
-en Cala Cala.
-</p>
+    <select id="tipo">
 
-<button class="btn">
-Guardar en favoritos
-</button>
+      <option value="todos">
+        Tipo inmobiliario
+      </option>
 
-</div>
+      <option value="venta">
+        Venta
+      </option>
 
-</div>
+      <option value="alquiler">
+        Alquiler
+      </option>
 
-</div>
+      <option value="anticretico">
+        Anticrético
+      </option>
+
+    </select>
+
+    <select>
+
+      <option>
+        Tipo de vivienda
+      </option>
+
+      <option>
+        Casa
+      </option>
+
+      <option>
+        Departamento
+      </option>
+
+      <option>
+        Oficina
+      </option>
+
+    </select>
+
+    <input type="number"
+    placeholder="Precio mínimo">
+
+    <input type="number"
+    placeholder="Precio máximo">
+
+    <select>
+
+      <option>
+        # Habitaciones
+      </option>
+
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4+</option>
+
+    </select>
+
+    <button onclick="filtrar()">
+      Buscar
+    </button>
+
+  </div>
+
+  <!-- MAPA -->
+
+  <div class="map-container">
+
+    <div id="map"></div>
+
+    <!-- TARJETA -->
+
+    <div class="card" id="card">
+
+      <img id="imgCasa"
+      src="">
+
+      <div class="card-body">
+
+        <div class="tipo"
+        id="tipoCasa">
+          Venta
+        </div>
+
+        <div class="precio"
+        id="precioCasa">
+          $120.000
+        </div>
+
+        <div class="detalles">
+
+          <div class="detalle">
+            🛏 3 habitaciones
+          </div>
+
+          <div class="detalle">
+            🚿 2 baños
+          </div>
+
+          <div class="detalle">
+            📐 240m²
+          </div>
+
+          <div class="detalle">
+            🚗 Garaje
+          </div>
+
+        </div>
+
+        <p class="descripcion">
+          Hermosa propiedad moderna ubicada
+          cerca de supermercados y transporte.
+        </p>
+
+        <button class="btn">
+          Guardar favorito
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
 
@@ -247,54 +499,88 @@ Guardar en favoritos
 
 <script>
 
-// MAPA
-let map = L.map('map').setView([-17.393, -66.157], 13);
+/* ================= MAPA ================= */
+
+let map = L.map('map')
+.setView([-17.393,-66.157],13);
 
 L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 {
- attribution:'OpenStreetMap'
+  attribution:'PROP CODE'
 }
 ).addTo(map);
 
-// DATOS
+/* ================= DATOS ================= */
+
 let propiedades = [
 
 {
- titulo:"Casa Centro",
- tipo:"venta",
- zona:"centro",
- lat:-17.393,
- lng:-66.157,
- color:"green"
+  titulo:"Casa Norte",
+  tipo:"venta",
+  zona:"norte",
+  precio:"$120.000",
+
+  lat:-17.385,
+  lng:-66.145,
+
+  color:"green",
+
+  img:"https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop"
 },
 
 {
- titulo:"Depa Norte",
- tipo:"alquiler",
- zona:"norte",
- lat:-17.385,
- lng:-66.145,
- color:"blue"
+  titulo:"Departamento Centro",
+  tipo:"alquiler",
+  zona:"centro",
+  precio:"$80.000",
+
+  lat:-17.393,
+  lng:-66.157,
+
+  color:"blue",
+
+  img:"https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop"
 },
 
 {
- titulo:"Casa Sur",
- tipo:"anticretico",
- zona:"sur",
- lat:-17.405,
- lng:-66.170,
- color:"red"
+  titulo:"Casa Sur",
+  tipo:"anticretico",
+  zona:"sur",
+  precio:"$95.000",
+
+  lat:-17.405,
+  lng:-66.170,
+
+  color:"red",
+
+  img:"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200&auto=format&fit=crop"
+},
+
+{
+  titulo:"Casa Oeste",
+  tipo:"venta",
+  zona:"oeste",
+  precio:"$150.000",
+
+  lat:-17.390,
+  lng:-66.185,
+
+  color:"green",
+
+  img:"https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1200&auto=format&fit=crop"
 }
 
 ];
 
 let markers = [];
 
-// ICONO COLOR
+/* ================= ICONOS ================= */
+
 function crearIcono(color){
 
   return L.divIcon({
+
     html:`
       <div style="
         background:${color};
@@ -302,17 +588,22 @@ function crearIcono(color){
         height:18px;
         border-radius:50%;
         border:3px solid white;
+        box-shadow:0 0 10px rgba(0,0,0,.3);
       "></div>
     `,
+
     className:""
+
   });
 
 }
 
-// MOSTRAR
+/* ================= MOSTRAR ================= */
+
 function mostrar(data){
 
-  markers.forEach(m => map.removeLayer(m));
+  markers.forEach(m=>map.removeLayer(m));
+
   markers=[];
 
   data.forEach(p=>{
@@ -322,13 +613,34 @@ function mostrar(data){
       {
         icon:crearIcono(p.color)
       }
-    )
-    .addTo(map)
-    .bindPopup(`
-      <b>${p.titulo}</b><br>
-      ${p.tipo}<br>
-      Zona: ${p.zona}
-    `);
+    ).addTo(map);
+
+    marker.on('click',()=>{
+
+      let card =
+      document.getElementById("card");
+
+      // TOGGLE
+      if(card.style.display==="block"){
+
+        card.style.display="none";
+
+      }else{
+
+        card.style.display="block";
+
+        document.getElementById("precioCasa")
+        .innerHTML = p.precio;
+
+        document.getElementById("tipoCasa")
+        .innerHTML = p.tipo;
+
+        document.getElementById("imgCasa")
+        .src = p.img;
+
+      }
+
+    });
 
     markers.push(marker);
 
@@ -336,7 +648,8 @@ function mostrar(data){
 
 }
 
-// FILTRO
+/* ================= FILTRAR ================= */
+
 function filtrar(){
 
   let tipo =
@@ -359,9 +672,13 @@ function filtrar(){
 
   mostrar(filtradas);
 
+  // ocultar tarjeta al filtrar
+  document.getElementById("card")
+  .style.display="none";
 }
 
-// INICIO
+/* ================= INICIO ================= */
+
 mostrar(propiedades);
 
 </script>
