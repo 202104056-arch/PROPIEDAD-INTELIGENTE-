@@ -362,7 +362,7 @@ body{
 
     <a href="#">🏠 Inicio</a>
 
-    <a href="#">❤ Favoritos</a>
+    <a href="favoritos.html">❤ Favoritos</a>
 
     <a href="#">🔔 Alertas</a>
 
@@ -381,8 +381,6 @@ body{
 <!-- MAIN -->
 
 <div class="main">
-
-  <!-- TOPBAR -->
 
   <div class="topbar">
 
@@ -478,8 +476,6 @@ body{
 
       </select>
 
-      <!-- FILTRO ZONA -->
-
       <select class="input-filtro">
 
         <option>Zona</option>
@@ -556,8 +552,6 @@ body{
 
     </div>
 
-    <!-- MAPA -->
-
     <div id="map"></div>
 
   </section>
@@ -571,8 +565,6 @@ body{
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-
-/* MAPA */
 
 const map = L.map('map').setView(
   [-17.3935, -66.1570],
@@ -647,8 +639,6 @@ const propiedades = {
   }
 
 };
-
-/* CONTROL */
 
 let pinActivo = null;
 
