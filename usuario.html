@@ -12,127 +12,101 @@
 
 <style>
 
-/* ===== BASE ===== */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins', sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins', sans-serif;}
 
-body{
-  background:#f5f7fb;
-  display:flex;
-}
+body{background:#f5f7fb;display:flex;}
 
-/* ===== SIDEBAR ===== */
-.sidebar{
-  width:280px;
-  height:100vh;
+/* SIDEBAR */
+.sidebar{width:280px;height:100vh;background:white;border-right:1px solid #e5e7eb;padding:35px 25px;position:fixed;left:0;top:0;}
+
+.logo{display:flex;align-items:center;gap:12px;margin-bottom:50px;}
+
+.logo-box{width:45px;height:45px;background:#1976ff;border-radius:12px;}
+
+.logo h1{font-size:30px;font-weight:800;}
+
+.logo span{color:#1976ff;}
+
+.menu{display:flex;flex-direction:column;gap:14px;}
+
+.menu a{text-decoration:none;color:#334155;padding:16px 18px;border-radius:16px;font-weight:600;}
+
+.menu a:hover{background:#eef5ff;color:#1976ff;}
+
+/* MAIN */
+.main{margin-left:280px;width:calc(100% - 280px);padding:30px;display:flex;gap:20px;}
+
+/* FILTROS */
+.filtros{
+  width:260px;
   background:white;
-  border-right:1px solid #e5e7eb;
-  padding:35px 25px;
-  position:fixed;
-  left:0;
-  top:0;
+  padding:20px;
+  border-radius:24px;
+  box-shadow:0 10px 35px rgba(0,0,0,0.08);
+  height:fit-content;
 }
 
-.menu{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
+.filtros h3{margin-bottom:15px;}
 
-.menu a{
-  text-decoration:none;
-  color:#334155;
-  padding:14px;
-  border-radius:12px;
-  font-weight:600;
-}
-
-.menu a:hover{
-  background:#eef5ff;
-  color:#1976ff;
-}
-
-/* ===== MAIN ===== */
-.main{
-  margin-left:280px;
-  width:calc(100% - 280px);
-  padding:30px;
-}
-
-/* ===== MAPA ===== */
-#map{
+.filtros select,
+.filtros input{
   width:100%;
-  height:75vh;
-  border-radius:20px;
+  padding:10px;
+  margin-bottom:12px;
+  border-radius:12px;
+  border:1px solid #ddd;
 }
 
-/* ===== PINES ===== */
-.pin{
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  border:3px solid white;
+/* MAPA */
+.mapa{
+  flex:1;
+  background:white;
+  padding:25px;
+  border-radius:32px;
+  box-shadow:0 10px 35px rgba(0,0,0,0.08);
 }
 
+#map{width:100%;height:75vh;border-radius:24px;}
+
+/* PINES */
+.pin{width:20px;height:20px;border-radius:50%;border:3px solid white;}
 .pin-rojo{background:red;}
 .pin-azul{background:blue;}
 .pin-verde{background:green;}
 
-/* ===== CARD ===== */
+/* CARD */
 .card-propiedad{
   position:fixed;
-  right:20px;
-  bottom:20px;
-  width:350px;
+  right:25px;
+  bottom:25px;
+  width:380px;
   background:white;
-  border-radius:20px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.25);
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 15px 45px rgba(0,0,0,0.25);
   display:none;
 }
 
-.card-propiedad img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-}
+.card-propiedad img{width:100%;height:220px;object-fit:cover;}
 
-.contenido-card{
-  padding:15px;
-}
+.contenido-card{padding:22px;}
 
-.precio{
-  color:#1976ff;
-  font-size:32px;
-  font-weight:800;
-}
+.precio{color:#1976ff;font-size:40px;font-weight:800;}
 
-.info-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:15px;
-}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
 
-.info-item{
-  background:#f5f7fb;
-  padding:10px;
-  border-radius:10px;
-}
+.info-item{background:#f5f7fb;padding:14px;border-radius:14px;}
 
 .btn-favorito{
   width:100%;
-  margin-top:15px;
-  padding:12px;
+  margin-top:20px;
+  padding:14px;
+  border:none;
+  border-radius:14px;
   background:#1976ff;
   color:white;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
   font-weight:700;
+  cursor:pointer;
 }
 
 </style>
@@ -144,27 +118,46 @@ body{
 <!-- SIDEBAR -->
 <div class="sidebar">
 
-  <div class="menu">
-
-    <a href="#">🏠 Inicio</a>
-
-    <!-- 🔥 ARREGLADO -->
-    <a href="./favoritos.html">❤ Favoritos</a>
-
-    <a href="#">📍 Mapa</a>
-
-    <a href="#">⚖ Comparador</a>
-
-    <a href="#">👤 Perfil</a>
-
+  <div class="logo">
+    <div class="logo-box"></div>
+    <h1>PROP <span>CODE</span></h1>
   </div>
 
+  <div class="menu">
+    <a>🏠 Inicio</a>
+    <a href="favoritos.html">❤ Favoritos</a>
+    <a>📍 Mapa</a>
+    <a>⚖ Comparador</a>
+    <a>👤 Perfil</a>
+  </div>
 </div>
 
 <!-- MAIN -->
 <div class="main">
 
-  <div id="map"></div>
+  <!-- FILTROS -->
+  <div class="filtros">
+    <h3>🔎 Filtros</h3>
+
+    <select id="tipo">
+      <option value="">Tipo de propiedad</option>
+      <option value="Casa">Casa</option>
+      <option value="Departamento">Departamento</option>
+    </select>
+
+    <input type="number" id="precioMax" placeholder="Precio máximo">
+
+    <input type="number" id="habitaciones" placeholder="Habitaciones mínimas">
+
+    <button onclick="aplicarFiltros()" style="width:100%;padding:10px;border:none;background:#1976ff;color:white;border-radius:12px;cursor:pointer;">
+      Aplicar filtros
+    </button>
+  </div>
+
+  <!-- MAPA -->
+  <section class="mapa">
+    <div id="map"></div>
+  </section>
 
 </div>
 
@@ -176,19 +169,15 @@ body{
   <div class="contenido-card">
 
     <h2>Casa Cala Cala</h2>
-
     <h1 class="precio">$120.000</h1>
 
     <div class="info-grid">
-
       <div class="info-item">🏠 Casa</div>
       <div class="info-item">📐 240 m²</div>
       <div class="info-item">🛏 3 habitaciones</div>
       <div class="info-item">🚿 2 baños</div>
-
     </div>
 
-    <!-- 🔥 BOTÓN FAVORITO FUNCIONAL -->
     <button class="btn-favorito" onclick="guardarFavorito()">
       ❤ Guardar favorito
     </button>
@@ -200,61 +189,97 @@ body{
 
 <script>
 
-/* MAPA */
 const map = L.map('map').setView([-17.3935, -66.1570], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'PROP CODE'
 }).addTo(map);
 
-/* PINES */
-function crearPin(color){
+function crearPin(colorClase){
   return L.divIcon({
     className:'',
-    html:`<div class="pin ${color}"></div>`,
+    html:`<div class="pin ${colorClase}"></div>`,
     iconSize:[20,20]
   });
 }
 
-const rojo = crearPin('pin-rojo');
-const azul = crearPin('pin-azul');
-const verde = crearPin('pin-verde');
+const propiedades = [
+  {
+    lat:-17.3835,
+    lng:-66.1500,
+    tipo:"Casa",
+    precio:120000,
+    habitaciones:3,
+    icon:crearPin('pin-rojo')
+  },
+  {
+    lat:-17.4000,
+    lng:-66.1700,
+    tipo:"Departamento",
+    precio:80000,
+    habitaciones:2,
+    icon:crearPin('pin-azul')
+  }
+];
+
+let markers = [];
+
+function cargarMarcadores(lista){
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+
+  lista.forEach(p => {
+    let m = L.marker([p.lat,p.lng],{icon:p.icon})
+      .addTo(map)
+      .on('click', mostrarCard);
+
+    markers.push(m);
+  });
+}
+
+cargarMarcadores(propiedades);
 
 /* CARD */
 const card = document.getElementById("card");
 
 function mostrarCard(){
-  card.style.display = card.style.display === "block" ? "none" : "block";
+  card.style.display = "block";
 }
 
-/* 🔥 FAVORITOS (FUNCIONAL) */
+/* FILTROS */
+function aplicarFiltros(){
+
+  const tipo = document.getElementById("tipo").value;
+  const precioMax = parseInt(document.getElementById("precioMax").value) || Infinity;
+  const habitaciones = parseInt(document.getElementById("habitaciones").value) || 0;
+
+  const filtradas = propiedades.filter(p =>
+    (tipo === "" || p.tipo === tipo) &&
+    p.precio <= precioMax &&
+    p.habitaciones >= habitaciones
+  );
+
+  cargarMarcadores(filtradas);
+}
+
+/* FAVORITOS */
 function guardarFavorito(){
 
   const propiedad = {
-    titulo: "Casa Cala Cala",
-    precio: 120000,
-    tipo: "Casa",
-    habitaciones: 3,
-    baños: 2,
-    imagen: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200"
+    titulo:"Casa Cala Cala",
+    precio:120000,
+    tipo:"Casa",
+    habitaciones:3
   };
 
   let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
-
   favoritos.push(propiedad);
-
   localStorage.setItem("favoritos", JSON.stringify(favoritos));
 
   alert("❤️ Guardado en favoritos");
 }
 
-/* GLOBAL */
 window.guardarFavorito = guardarFavorito;
-
-/* MARKERS */
-L.marker([-17.3835, -66.1500], {icon: rojo}).addTo(map).on('click', mostrarCard);
-L.marker([-17.4000, -66.1700], {icon: azul}).addTo(map).on('click', mostrarCard);
-L.marker([-17.3700, -66.1400], {icon: verde}).addTo(map).on('click', mostrarCard);
 
 </script>
 
