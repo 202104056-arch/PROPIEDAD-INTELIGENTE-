@@ -478,6 +478,20 @@ body{
 
       </select>
 
+      <!-- NUEVO FILTRO ZONA -->
+
+      <select class="input-filtro">
+
+        <option>Zona</option>
+
+        <option>Norte</option>
+
+        <option>Sur</option>
+
+        <option>Central</option>
+
+      </select>
+
       <input 
         type="number"
         placeholder="Precio mínimo"
@@ -489,6 +503,22 @@ body{
         placeholder="Precio máximo"
         class="input-filtro"
       >
+
+      <select class="input-filtro">
+
+        <option># Habitaciones</option>
+
+        <option>1 habitación</option>
+
+        <option>2 habitaciones</option>
+
+        <option>3 habitaciones</option>
+
+        <option>4 habitaciones</option>
+
+        <option>5+ habitaciones</option>
+
+      </select>
 
       <button class="buscar-btn">
         Buscar
@@ -542,9 +572,7 @@ body{
 
 <script>
 
-/* =========================
-   MAPA
-========================= */
+/* MAPA */
 
 const map = L.map('map').setView(
   [-17.3935, -66.1570],
@@ -557,9 +585,7 @@ L.tileLayer(
   attribution:'PROP CODE'
 }).addTo(map);
 
-/* =========================
-   PINES
-========================= */
+/* PINES */
 
 function crearPin(colorClase){
 
@@ -579,15 +605,11 @@ const rojo = crearPin('pin-rojo');
 const azul = crearPin('pin-azul');
 const verde = crearPin('pin-verde');
 
-/* =========================
-   CARD
-========================= */
+/* CARD */
 
 const card = document.getElementById("card");
 
-/* =========================
-   PROPIEDADES
-========================= */
+/* PROPIEDADES */
 
 const propiedades = {
 
@@ -606,7 +628,7 @@ const propiedades = {
     baños:"🚿 2 baños",
 
     descripcion:
-    "Hermosa casa moderna ubicada en Cala Cala, cerca de supermercados y transporte.",
+    "Hermosa casa moderna ubicada en Cala Cala, Zona Norte.",
 
     imagen:
     "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200"
@@ -628,7 +650,7 @@ const propiedades = {
     baños:"🚿 1 baño",
 
     descripcion:
-    "Departamento moderno en alquiler con excelente iluminación y seguridad.",
+    "Departamento moderno en alquiler en la Zona Central.",
 
     imagen:
     "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200"
@@ -650,7 +672,7 @@ const propiedades = {
     baños:"🚿 3 baños",
 
     descripcion:
-    "Casa amplia en Tiquipaya con jardín y áreas verdes.",
+    "Casa amplia ubicada en la Zona Sur de Cochabamba.",
 
     imagen:
     "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200"
@@ -659,15 +681,11 @@ const propiedades = {
 
 };
 
-/* =========================
-   CONTROL CARD
-========================= */
+/* CONTROL CARD */
 
 let pinActivo = null;
 
 function mostrarCard(pinId){
-
-  /* SI APRIETA EL MISMO PIN */
 
   if(pinActivo === pinId){
 
@@ -679,11 +697,7 @@ function mostrarCard(pinId){
 
   }
 
-  /* DATOS */
-
   const propiedad = propiedades[pinId];
-
-  /* CONTENIDO */
 
   card.innerHTML = `
 
@@ -739,17 +753,13 @@ function mostrarCard(pinId){
 
   `;
 
-  /* MOSTRAR */
-
   card.style.display = "block";
 
   pinActivo = pinId;
 
 }
 
-/* =========================
-   MARKERS
-========================= */
+/* MARKERS */
 
 L.marker(
 [-17.3835, -66.1500],
