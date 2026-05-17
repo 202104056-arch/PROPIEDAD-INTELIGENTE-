@@ -1,69 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PROP CODE | Mapa con filtros</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Usuario | PROP CODE</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <style>
-body{
-  margin:0;
+body {
+  margin: 0;
   font-family: Arial;
-  display:flex;
-  height:100vh;
+  display: flex;
 }
 
-/* SIDEBAR */
-.sidebar{
-  width:260px;
-  background:#fff;
-  padding:20px;
-  border-right:1px solid #eee;
+#panel {
+  width: 300px;
+  height: 100vh;
+  overflow-y: auto;
+  background: #111;
+  color: white;
+  padding: 10px;
 }
 
-.input{
-  width:100%;
-  margin:8px 0;
-  padding:10px;
-  border:1px solid #ddd;
-  border-radius:8px;
+#map {
+  flex: 1;
+  height: 100vh;
 }
 
-button{
-  width:100%;
-  padding:10px;
-  background:#1677ff;
-  color:white;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
+.card {
+  background: #222;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 8px;
 }
 
-/* MAPA */
-#map{
-  flex:1;
-  height:100%;
+button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="sidebar">
+<div id="panel">
   <h3>Filtros</h3>
+  <button onclick="filtrar('todos')">Todos</button>
+  <button onclick="filtrar('venta')">Venta</button>
+  <button onclick="filtrar('alquiler')">Alquiler</button>
 
-  <select id="tipo" class="input">
-    <option value="">Tipo de propiedad</option>
-    <option value="casa">Casa</option>
-    <option value="depa">Departamento</option>
-  </select>
-
-  <input id="precio" class="input" type="number" placeholder="Precio máximo">
-  <input id="hab" class="input" type="number" placeholder="Habitaciones mínimas">
-
-  <button onclick="filtrar()">Aplicar filtros</button>
+  <h3>Propiedades</h3>
+  <div id="lista"></div>
 </div>
 
 <div id="map"></div>
@@ -72,59 +64,70 @@ button{
 
 <script>
 // ---------------- MAPA ----------------
-const map = L.map('map').setView([-17.393, -66.157], 13);
+let map = L.map('map').setView([-17.393, -66.157], 13);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  maxZoom:19
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: 'mapa'
 }).addTo(map);
 
-// ---------------- DATOS SIMULADOS ----------------
-const propiedades = [
-  {id:1, tipo:"casa", precio:120000, hab:3, lat:-17.39, lng:-66.15},
-  {id:2, tipo:"depa", precio:80000, hab:2, lat:-17.40, lng:-66.16},
-  {id:3, tipo:"casa", precio:200000, hab:5, lat:-17.41, lng:-66.14}
+// ---------------- DATOS ----------------
+let propiedades = [
+  {id:1, titulo:"Casa Centro", tipo:"venta", lat:-17.393, lng:-66.157},
+  {id:2, titulo:"Depa Norte", tipo:"alquiler", lat:-17.385, lng:-66.145},
+  {id:3, titulo:"Casa Sur", tipo:"venta", lat:-17.405, lng:-66.170}
 ];
 
 let markers = [];
 
-// ---------------- MOSTRAR MARCADORES ----------------
-function render(data){
+// ---------------- MOSTRAR ----------------
+function mostrar(data){
+
+  document.getElementById("lista").innerHTML = "";
+
+  // limpiar markers
   markers.forEach(m => map.removeLayer(m));
   markers = [];
 
   data.forEach(p => {
-    const marker = L.marker([p.lat, p.lng])
+
+    // lista
+    let div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <b>${p.titulo}</b><br>
+      Tipo: ${p.tipo}<br>
+      <button onclick="ver(${p.lat},${p.lng})">Ver en mapa</button>
+    `;
+    document.getElementById("lista").appendChild(div);
+
+    // marker
+    let marker = L.marker([p.lat, p.lng])
       .addTo(map)
-      .bindPopup(`
-        <b>${p.tipo}</b><br>
-        Precio: ${p.precio}<br>
-        Habitaciones: ${p.hab}
-      `);
+      .bindPopup(p.titulo);
 
     markers.push(marker);
   });
 }
 
-// inicial
-render(propiedades);
-
 // ---------------- FILTRO ----------------
-function filtrar(){
-  const tipo = document.getElementById("tipo").value;
-  const precio = document.getElementById("precio").value;
-  const hab = document.getElementById("hab").value;
+function filtrar(tipo){
 
-  const filtrados = propiedades.filter(p => {
-
-    return (
-      (tipo === "" || p.tipo === tipo) &&
-      (precio === "" || p.precio <= parseInt(precio)) &&
-      (hab === "" || p.hab >= parseInt(hab))
-    );
-  });
-
-  render(filtrados);
+  if(tipo === "todos"){
+    mostrar(propiedades);
+  } else {
+    let filtradas = propiedades.filter(p => p.tipo === tipo);
+    mostrar(filtradas);
+  }
 }
+
+// ---------------- VER EN MAPA ----------------
+function ver(lat,lng){
+  map.setView([lat,lng], 15);
+}
+
+// inicial
+mostrar(propiedades);
+
 </script>
 
 </body>
