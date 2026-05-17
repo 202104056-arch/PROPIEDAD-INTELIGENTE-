@@ -16,8 +16,6 @@
 
 <style>
 
-/* GENERAL */
-
 *{
   margin:0;
   padding:0;
@@ -255,7 +253,6 @@ nav a{
   box-shadow:0 15px 45px rgba(0,0,0,0.25);
   z-index:9999999;
   display:none;
-  pointer-events:auto;
 }
 
 .card-propiedad img{
@@ -276,7 +273,6 @@ nav a{
   align-items:center;
   justify-content:center;
   font-size:22px;
-  cursor:pointer;
 }
 
 .contenido-card{
@@ -399,7 +395,6 @@ nav a{
   border:1px solid #d1d5db;
   border-radius:14px;
   font-size:15px;
-  outline:none;
 }
 
 .btn-modal{
@@ -420,10 +415,6 @@ nav a{
   border:none;
   color:#666;
   cursor:pointer;
-}
-
-html{
-  scroll-behavior:smooth;
 }
 
 </style>
@@ -537,13 +528,9 @@ html{
 
 <div class="card-propiedad" id="card">
 
-  <div class="favorito">
-    ♡
-  </div>
+  <div class="favorito">♡</div>
 
-  <img 
-    src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200"
-  >
+  <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200">
 
   <div class="contenido-card">
 
@@ -551,13 +538,9 @@ html{
 
       <div>
 
-        <p class="precio-anterior">
-          $140.000
-        </p>
+        <p class="precio-anterior">$140.000</p>
 
-        <h2 class="precio">
-          $120.000
-        </h2>
+        <h2 class="precio">$120.000</h2>
 
       </div>
 
@@ -573,29 +556,16 @@ html{
 
     <div class="info-grid">
 
-      <div class="info-item">
-        🏠 Casa
-      </div>
-
-      <div class="info-item">
-        📐 240 m²
-      </div>
-
-      <div class="info-item">
-        🛏 3 habitaciones
-      </div>
-
-      <div class="info-item">
-        🚿 2 baños
-      </div>
+      <div class="info-item">🏠 Casa</div>
+      <div class="info-item">📐 240 m²</div>
+      <div class="info-item">🛏 3 habitaciones</div>
+      <div class="info-item">🚿 2 baños</div>
 
     </div>
 
     <p class="descripcion">
       Hermosa casa moderna ubicada en Cala Cala,
-      cerca de supermercados, colegios y transporte.
-      Cuenta con ambientes amplios, iluminación natural
-      y jardín privado.
+      cerca de supermercados y transporte.
     </p>
 
     <div class="galeria">
@@ -632,17 +602,9 @@ html{
       Regístrate para guardar esta propiedad en favoritos
     </p>
 
-    <input 
-      type="text"
-      placeholder="Nombre completo"
-      class="input-modal"
-    >
+    <input type="text" placeholder="Nombre completo" class="input-modal">
 
-    <input 
-      type="email"
-      placeholder="Correo electrónico"
-      class="input-modal"
-    >
+    <input type="email" placeholder="Correo electrónico" class="input-modal">
 
     <button class="btn-modal">
       Guardar favorito
@@ -665,13 +627,12 @@ html{
 const map = L.map('map').setView([-17.3935, -66.1570], 13);
 
 L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution:'PROP CODE'
-  }
-).addTo(map);
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+  attribution:'PROP CODE'
+}).addTo(map);
 
-/* CREAR PINES */
+/* PINES */
 
 function crearPin(colorClase){
 
@@ -707,21 +668,21 @@ function cerrarFormulario(){
 
 }
 
-/* TOGGLE CARD */
+/* CONTROL CARD */
 
-let cardVisible = false;
+let pinActivo = null;
 
-function toggleCard(){
+function manejarCard(pinId){
 
-  if(cardVisible){
+  if(pinActivo === pinId){
 
     card.style.display = "none";
-    cardVisible = false;
+    pinActivo = null;
 
   }else{
 
     card.style.display = "block";
-    cardVisible = true;
+    pinActivo = pinId;
 
   }
 
@@ -733,7 +694,7 @@ L.marker([-17.3835, -66.1500], {icon: rojo})
 .addTo(map)
 .on('click', function(){
 
-  toggleCard();
+  manejarCard("pin1");
 
 });
 
@@ -741,7 +702,7 @@ L.marker([-17.4000, -66.1700], {icon: azul})
 .addTo(map)
 .on('click', function(){
 
-  toggleCard();
+  manejarCard("pin2");
 
 });
 
@@ -749,7 +710,7 @@ L.marker([-17.3700, -66.1400], {icon: verde})
 .addTo(map)
 .on('click', function(){
 
-  toggleCard();
+  manejarCard("pin3");
 
 });
 
