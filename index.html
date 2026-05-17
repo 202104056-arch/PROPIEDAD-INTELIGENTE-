@@ -253,11 +253,8 @@ nav a{
   border-radius:28px;
   overflow:hidden;
   box-shadow:0 15px 45px rgba(0,0,0,0.25);
-
   z-index:9999999;
-
   display:none;
-
   pointer-events:auto;
 }
 
@@ -475,8 +472,6 @@ html{
 
   <h2>Mapa interactivo</h2>
 
-  <!-- FILTROS -->
-
   <div class="filtros">
 
     <input type="text" placeholder="📍 Ubicación" class="input-filtro">
@@ -514,8 +509,6 @@ html{
     </button>
 
   </div>
-
-  <!-- LEYENDA -->
 
   <div class="leyenda">
 
@@ -599,12 +592,10 @@ html{
     </div>
 
     <p class="descripcion">
-
       Hermosa casa moderna ubicada en Cala Cala,
       cerca de supermercados, colegios y transporte.
       Cuenta con ambientes amplios, iluminación natural
       y jardín privado.
-
     </p>
 
     <div class="galeria">
@@ -673,11 +664,14 @@ html{
 
 const map = L.map('map').setView([-17.3935, -66.1570], 13);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution:'PROP CODE'
-}).addTo(map);
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution:'PROP CODE'
+  }
+).addTo(map);
 
-/* PINES */
+/* CREAR PINES */
 
 function crearPin(colorClase){
 
@@ -713,13 +707,33 @@ function cerrarFormulario(){
 
 }
 
+/* TOGGLE CARD */
+
+let cardVisible = false;
+
+function toggleCard(){
+
+  if(cardVisible){
+
+    card.style.display = "none";
+    cardVisible = false;
+
+  }else{
+
+    card.style.display = "block";
+    cardVisible = true;
+
+  }
+
+}
+
 /* MARKERS */
 
 L.marker([-17.3835, -66.1500], {icon: rojo})
 .addTo(map)
 .on('click', function(){
 
-  card.style.display = "block";
+  toggleCard();
 
 });
 
@@ -727,7 +741,7 @@ L.marker([-17.4000, -66.1700], {icon: azul})
 .addTo(map)
 .on('click', function(){
 
-  card.style.display = "block";
+  toggleCard();
 
 });
 
@@ -735,7 +749,7 @@ L.marker([-17.3700, -66.1400], {icon: verde})
 .addTo(map)
 .on('click', function(){
 
-  card.style.display = "block";
+  toggleCard();
 
 });
 
