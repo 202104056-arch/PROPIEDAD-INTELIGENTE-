@@ -6,72 +6,38 @@
 
   <!-- FILTROS -->
 
-
   <div class="filtros">
 
-    <input 
-      type="text" 
-      placeholder="📍 Ubicación"
-      class="input-filtro"
-    >
+    <input type="text" placeholder="📍 Ubicación" class="input-filtro">
 
     <select class="input-filtro">
-
       <option>Tipo inmobiliario</option>
-
       <option>Anticrético</option>
-
       <option>Alquiler</option>
-
       <option>Compra</option>
-
     </select>
 
     <select class="input-filtro">
-
       <option>Tipo de vivienda</option>
-
       <option>Casa</option>
-
       <option>Departamento</option>
-
       <option>Habitación</option>
-
       <option>Oficina / Tienda</option>
-
     </select>
 
-    <input 
-      type="number"
-      placeholder="Precio mínimo"
-      class="input-filtro"
-    >
-
-    <input 
-      type="number"
-      placeholder="Precio máximo"
-      class="input-filtro"
-    >
+    <input type="number" placeholder="Precio mínimo" class="input-filtro">
+    <input type="number" placeholder="Precio máximo" class="input-filtro">
 
     <select class="input-filtro">
-
       <option># Habitaciones</option>
-
       <option>1 habitación</option>
-
       <option>2 habitaciones</option>
-
       <option>3 habitaciones</option>
-
       <option>4 habitaciones</option>
-
       <option>5+ habitaciones</option>
-
     </select>
 
-    <button class="buscar-btn">
-      Buscar
-    </button>
+    <button class="buscar-btn">Buscar</button>
 
   </div>
 
@@ -79,29 +45,9 @@
 
   <div class="leyenda">
 
-    <div class="item">
-
-      <div class="color rojo"></div>
-
-      Anticrético
-
-    </div>
-
-    <div class="item">
-
-      <div class="color azul"></div>
-
-      Alquiler
-
-    </div>
-
-    <div class="item">
-
-      <div class="color verde"></div>
-
-      Venta
-
-    </div>
+    <div class="item"><div class="color rojo"></div>Anticrético</div>
+    <div class="item"><div class="color azul"></div>Alquiler</div>
+    <div class="item"><div class="color verde"></div>Venta</div>
 
   </div>
 
@@ -115,33 +61,20 @@
 
 <div class="card-propiedad" id="card">
 
-  <div class="favorito">
-    ♡
-  </div>
+  <div class="favorito">♡</div>
 
-  <img 
-    src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200"
-  >
+  <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200">
 
   <div class="contenido-card">
 
     <div class="precio-box">
 
       <div>
-
-        <p class="precio-anterior">
-          $140.000
-        </p>
-
-        <h2 class="precio">
-          $120.000
-        </h2>
-
+        <p class="precio-anterior">$140.000</p>
+        <h2 class="precio">$120.000</h2>
       </div>
 
-      <div class="descuento">
-        ↓ 15%
-      </div>
+      <div class="descuento">↓ 15%</div>
 
     </div>
 
@@ -151,53 +84,35 @@
 
     <div class="info-grid">
 
-      <div class="info-item">
-        🏠 Casa
-      </div>
-
-      <div class="info-item">
-        📐 240 m²
-      </div>
-
-      <div class="info-item">
-        🛏 3 habitaciones
-      </div>
-
-      <div class="info-item">
-        🚿 2 baños
-      </div>
+      <div class="info-item">🏠 Casa</div>
+      <div class="info-item">📐 240 m²</div>
+      <div class="info-item">🛏 3 habitaciones</div>
+      <div class="info-item">🚿 2 baños</div>
 
     </div>
 
     <p class="descripcion">
-
-      Hermosa casa moderna ubicada en Cala Cala,
-      cerca de supermercados y transporte.
-
+      Hermosa casa moderna ubicada en Cala Cala, cerca de supermercados y transporte.
     </p>
 
     <div class="galeria">
 
       <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200">
-
       <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200">
-
       <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200">
 
     </div>
 
+    <!-- 🔥 BOTÓN FAVORITO CORREGIDO -->
     <div class="botones-card">
 
-      <button class="btn-favorito" onclick="abrirFormulario()">
-
+      <button class="btn-favorito" onclick="guardarFavorito()">
         ❤ Guardar en favoritos
-
       </button>
 
     </div>
 
   </div>
-
 </div>
 
 <!-- MODAL -->
@@ -206,38 +121,18 @@
 
   <div class="modal-contenido">
 
-    <h2>
-      Guardar propiedad
-    </h2>
+    <h2>Guardar propiedad</h2>
 
     <p class="texto-modal">
-
       Regístrate para guardar esta propiedad en favoritos
-
     </p>
 
-    <input 
-      type="text"
-      placeholder="Nombre completo"
-      class="input-modal"
-    >
+    <input type="text" placeholder="Nombre completo" class="input-modal">
+    <input type="email" placeholder="Correo electrónico" class="input-modal">
 
-    <input 
-      type="email"
-      placeholder="Correo electrónico"
-      class="input-modal"
-    >
+    <button class="btn-modal">Guardar favorito</button>
 
-    <button class="btn-modal">
-      Guardar favorito
-    </button>
-
-    <button 
-      class="cerrar-modal"
-      onclick="cerrarFormulario()"
-    >
-      Cerrar
-    </button>
+    <button class="cerrar-modal" onclick="cerrarFormulario()">Cerrar</button>
 
   </div>
 
@@ -245,11 +140,7 @@
 
 <!-- LEAFLET -->
 
-<link 
-rel="stylesheet" 
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <!-- SCRIPT -->
@@ -258,31 +149,20 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 
 /* MAPA */
 
-const map = L.map('map').setView(
-  [-17.3935, -66.1570],
-  13
-);
+const map = L.map('map').setView([-17.3935, -66.1570], 13);
 
-L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
-  attribution:'PROP CODE'
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: 'PROP CODE'
 }).addTo(map);
 
 /* PINES */
 
 function crearPin(colorClase){
-
   return L.divIcon({
-
-    className:'',
-
-    html:`<div class="pin ${colorClase}"></div>`,
-
-    iconSize:[20,20]
-
+    className: '',
+    html: `<div class="pin ${colorClase}"></div>`,
+    iconSize: [20, 20]
   });
-
 }
 
 const rojo = crearPin('pin-rojo');
@@ -298,15 +178,11 @@ const card = document.getElementById("card");
 const modal = document.getElementById("modal");
 
 function abrirFormulario(){
-
   modal.style.display = "flex";
-
 }
 
 function cerrarFormulario(){
-
   modal.style.display = "none";
-
 }
 
 /* CONTROL CARD */
@@ -316,54 +192,57 @@ let pinActivo = null;
 function manejarCard(pinId){
 
   if(pinActivo === pinId){
-
     card.style.display = "none";
-
     pinActivo = null;
-
-  }else{
-
+  } else {
     card.style.display = "block";
-
     pinActivo = pinId;
-
   }
+}
 
+/* 🔥 FAVORITOS (NUEVO SISTEMA) */
+
+function guardarFavorito(){
+
+  const propiedad = {
+    titulo: "Casa moderna en Cala Cala",
+    precio: 120000,
+    precioAnterior: 140000,
+    descuento: "15%",
+    tipo: "Casa",
+    habitaciones: 3,
+    baños: 2,
+    ubicacion: "Cochabamba",
+    imagen: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200"
+  };
+
+  let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+  favoritos.push(propiedad);
+
+  localStorage.setItem("favoritos", JSON.stringify(favoritos));
+
+  alert("❤️ Guardado en favoritos");
 }
 
 /* MARKERS */
 
-L.marker(
-  [-17.3835, -66.1500],
-  {icon: rojo}
-)
+L.marker([-17.3835, -66.1500], {icon: rojo})
 .addTo(map)
 .on('click', function(){
-
   manejarCard("pin1");
-
 });
 
-L.marker(
-  [-17.4000, -66.1700],
-  {icon: azul}
-)
+L.marker([-17.4000, -66.1700], {icon: azul})
 .addTo(map)
 .on('click', function(){
-
   manejarCard("pin2");
-
 });
 
-L.marker(
-  [-17.3700, -66.1400],
-  {icon: verde}
-)
+L.marker([-17.3700, -66.1400], {icon: verde})
 .addTo(map)
 .on('click', function(){
-
   manejarCard("pin3");
-
 });
 
 </script>
