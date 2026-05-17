@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparador | PROP CODE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins;
+}
+
+body{
+  background:#f5f7fb;
+  padding:30px;
+}
+
+/* CONTENEDOR */
+.container{
+  max-width:1000px;
+  margin:auto;
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* SELECTS */
+select{
+  padding:12px;
+  margin:10px;
+  width:250px;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+/* BOTÓN */
+button{
+  padding:12px 18px;
+  background:#1976ff;
+  color:white;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* TABLA */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+th,td{
+  padding:14px;
+  border:1px solid #eee;
+  text-align:center;
+}
+
+th{
+  background:#1976ff;
+  color:white;
+}
+
+h1{
+  margin-bottom:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>⚖ Comparador de Propiedades</h1>
+
+  <select id="p1"></select>
+  <select id="p2"></select>
+
+  <button onclick="comparar()">Comparar</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Campo</th>
+        <th>Propiedad 1</th>
+        <th>Propiedad 2</th>
+      </tr>
+    </thead>
+    <tbody id="tabla"></tbody>
+  </table>
+
+</div>
+
+<script>
+
+/* BASE DE DATOS */
+const propiedades = {
+  p1:{
+    nombre:"Casa Cala Cala",
+    precio:"$120.000",
+    tipo:"Casa",
+    habitaciones:"3",
+    baños:"2",
+    m2:"240"
+  },
+
+  p2:{
+    nombre:"Depto Centro",
+    precio:"$3.500",
+    tipo:"Departamento",
+    habitaciones:"2",
+    baños:"1",
+    m2:"120"
+  },
+
+  p3:{
+    nombre:"Casa Sur",
+    precio:"$95.000",
+    tipo:"Casa",
+    habitaciones:"4",
+    baños:"3",
+    m2:"300"
+  }
+}
+
+/* CARGAR SELECTS */
+function cargar(){
+
+  const p1 = document.getElementById("p1");
+  const p2 = document.getElementById("p2");
+
+  for(let key in propiedades){
+    p1.innerHTML += `<option value="${key}">${propiedades[key].nombre}</option>`;
+    p2.innerHTML += `<option value="${key}">${propiedades[key].nombre}</option>`;
+  }
+}
+
+cargar();
+
+/* COMPARAR */
+function comparar(){
+
+  const a = document.getElementById("p1").value;
+  const b = document.getElementById("p2").value;
+
+  const t = document.getElementById("tabla");
+
+  t.innerHTML = `
+    <tr>
+      <td>Nombre</td>
+      <td>${propiedades[a].nombre}</td>
+      <td>${propiedades[b].nombre}</td>
+    </tr>
+    <tr>
+      <td>Precio</td>
+      <td>${propiedades[a].precio}</td>
+      <td>${propiedades[b].precio}</td>
+    </tr>
+    <tr>
+      <td>Tipo</td>
+      <td>${propiedades[a].tipo}</td>
+      <td>${propiedades[b].tipo}</td>
+    </tr>
+    <tr>
+      <td>Habitaciones</td>
+      <td>${propiedades[a].habitaciones}</td>
+      <td>${propiedades[b].habitaciones}</td>
+    </tr>
+    <tr>
+      <td>Baños</td>
+      <td>${propiedades[a].baños}</td>
+      <td>${propiedades[b].baños}</td>
+    </tr>
+    <tr>
+      <td>M²</td>
+      <td>${propiedades[a].m2}</td>
+      <td>${propiedades[b].m2}</td>
+    </tr>
+  `;
+
+}
+
+</script>
+
+</body>
+</html>
