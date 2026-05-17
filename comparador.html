@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comparador | PROP CODE</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Usuario | PROP CODE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
 
@@ -13,54 +17,109 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:Poppins;
+  font-family:'Poppins', sans-serif;
 }
 
 body{
   background:#f5f7fb;
+  display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:280px;
+  height:100vh;
+  background:white;
+  border-right:1px solid #e5e7eb;
+  padding:35px 25px;
+  position:fixed;
+  left:0;
+  top:0;
+}
+
+.menu a{
+  display:block;
+  padding:14px;
+  margin:10px 0;
+  text-decoration:none;
+  color:#333;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.menu a:hover{
+  background:#eef5ff;
+  color:#1976ff;
+}
+
+/* MAIN */
+.main{
+  margin-left:280px;
+  width:calc(100% - 280px);
   padding:30px;
 }
 
-/* CONTENEDOR */
-.container{
-  max-width:1000px;
-  margin:auto;
-  background:white;
-  padding:25px;
+/* MAPA */
+#map{
+  width:100%;
+  height:80vh;
   border-radius:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* SELECTS */
-select{
-  padding:12px;
+/* CARD */
+.card-propiedad{
+  position:fixed;
+  right:25px;
+  bottom:25px;
+  width:350px;
+  background:white;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  display:none;
+  z-index:999;
+  padding:20px;
+}
+
+/* ================= COMPARADOR ================= */
+
+.comparador{
+  position:fixed;
+  top:80px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  max-width:900px;
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+  display:none;
+  z-index:9999;
+}
+
+.comparador select{
+  padding:10px;
   margin:10px;
-  width:250px;
-  border-radius:10px;
-  border:1px solid #ddd;
 }
 
-/* BOTÓN */
-button{
-  padding:12px 18px;
+.comparador button{
+  padding:10px 15px;
   background:#1976ff;
   color:white;
   border:none;
   border-radius:10px;
   cursor:pointer;
-  font-weight:600;
 }
 
-/* TABLA */
 table{
   width:100%;
   border-collapse:collapse;
-  margin-top:20px;
+  margin-top:15px;
 }
 
 th,td{
-  padding:14px;
   border:1px solid #eee;
+  padding:10px;
   text-align:center;
 }
 
@@ -69,19 +128,45 @@ th{
   color:white;
 }
 
-h1{
-  margin-bottom:15px;
-}
-
 </style>
 
 </head>
 
 <body>
 
-<div class="container">
+<!-- SIDEBAR -->
+<div class="sidebar">
 
-  <h1>⚖ Comparador de Propiedades</h1>
+  <h2>PROP CODE</h2>
+
+  <div class="menu">
+
+    <a>🏠 Inicio</a>
+    <a>❤ Favoritos</a>
+
+    <a onclick="abrirComparador()">⚖ Comparador</a>
+
+    <a>📍 Mapa</a>
+    <a>👤 Perfil</a>
+
+  </div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div id="map"></div>
+
+</div>
+
+<!-- CARD -->
+<div class="card-propiedad" id="card"></div>
+
+<!-- ================= COMPARADOR ================= -->
+<div class="comparador" id="comparador">
+
+  <h2>⚖ Comparador de Propiedades</h2>
 
   <select id="p1"></select>
   <select id="p2"></select>
@@ -96,71 +181,91 @@ h1{
         <th>Propiedad 2</th>
       </tr>
     </thead>
-    <tbody id="tabla"></tbody>
+    <tbody id="tablaComp"></tbody>
   </table>
 
 </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script>
 
-/* BASE DE DATOS */
+/* MAPA */
+const map = L.map('map').setView([-17.3935,-66.1570],13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'PROP CODE'
+}).addTo(map);
+
+/* DATOS */
 const propiedades = {
-  p1:{
-    nombre:"Casa Cala Cala",
+
+  pin1:{
     precio:"$120.000",
     tipo:"Casa",
     habitaciones:"3",
-    baños:"2",
-    m2:"240"
+    baños:"2"
   },
 
-  p2:{
-    nombre:"Depto Centro",
+  pin2:{
     precio:"$3.500",
     tipo:"Departamento",
     habitaciones:"2",
-    baños:"1",
-    m2:"120"
+    baños:"1"
   },
 
-  p3:{
-    nombre:"Casa Sur",
+  pin3:{
     precio:"$95.000",
     tipo:"Casa",
     habitaciones:"4",
-    baños:"3",
-    m2:"300"
+    baños:"3"
   }
+
+};
+
+/* CARD */
+const card = document.getElementById("card");
+
+function mostrarCard(pin){
+  card.innerHTML = `
+    <h3>${propiedades[pin].precio}</h3>
+    <p>${propiedades[pin].tipo}</p>
+  `;
+  card.style.display="block";
 }
 
-/* CARGAR SELECTS */
-function cargar(){
+/* MARKERS */
+L.marker([-17.38,-66.15]).addTo(map).on("click",()=>mostrarCard("pin1"));
+L.marker([-17.40,-66.17]).addTo(map).on("click",()=>mostrarCard("pin2"));
+L.marker([-17.37,-66.14]).addTo(map).on("click",()=>mostrarCard("pin3"));
+
+/* ================= COMPARADOR ================= */
+
+function abrirComparador(){
+  document.getElementById("comparador").style.display="block";
+  cargarComparador();
+}
+
+function cargarComparador(){
 
   const p1 = document.getElementById("p1");
   const p2 = document.getElementById("p2");
 
+  p1.innerHTML="";
+  p2.innerHTML="";
+
   for(let key in propiedades){
-    p1.innerHTML += `<option value="${key}">${propiedades[key].nombre}</option>`;
-    p2.innerHTML += `<option value="${key}">${propiedades[key].nombre}</option>`;
+    p1.innerHTML += `<option value="${key}">${propiedades[key].precio}</option>`;
+    p2.innerHTML += `<option value="${key}">${propiedades[key].precio}</option>`;
   }
 }
 
-cargar();
-
-/* COMPARAR */
 function comparar(){
 
   const a = document.getElementById("p1").value;
   const b = document.getElementById("p2").value;
 
-  const t = document.getElementById("tabla");
-
-  t.innerHTML = `
-    <tr>
-      <td>Nombre</td>
-      <td>${propiedades[a].nombre}</td>
-      <td>${propiedades[b].nombre}</td>
-    </tr>
+  document.getElementById("tablaComp").innerHTML = `
     <tr>
       <td>Precio</td>
       <td>${propiedades[a].precio}</td>
@@ -181,13 +286,7 @@ function comparar(){
       <td>${propiedades[a].baños}</td>
       <td>${propiedades[b].baños}</td>
     </tr>
-    <tr>
-      <td>M²</td>
-      <td>${propiedades[a].m2}</td>
-      <td>${propiedades[b].m2}</td>
-    </tr>
   `;
-
 }
 
 </script>
