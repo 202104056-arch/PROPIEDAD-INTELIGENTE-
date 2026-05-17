@@ -241,7 +241,7 @@ nav a{
   background:green;
 }
 
-/* CARD ESTILO GOOGLE MAPS */
+/* CARD GOOGLE MAPS */
 
 .card-propiedad{
   position:fixed;
@@ -251,8 +251,10 @@ nav a{
   background:white;
   border-radius:28px;
   overflow:hidden;
-  box-shadow:0 15px 45px rgba(0,0,0,0.2);
-  z-index:9999;
+  box-shadow:0 15px 45px rgba(0,0,0,0.25);
+
+  z-index:99999;
+
   display:none;
 }
 
@@ -592,7 +594,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:'PROP CODE'
 }).addTo(map);
 
-/* PINES */
+/* CREAR PINES */
 
 function crearPin(colorClase){
 
@@ -619,6 +621,7 @@ L.marker([-17.3835, -66.1500], {icon: rojo})
 .on('click', function(){
 
   card.style.display = "block";
+  card.style.zIndex = "99999";
 
 });
 
@@ -627,6 +630,7 @@ L.marker([-17.4000, -66.1700], {icon: azul})
 .on('click', function(){
 
   card.style.display = "block";
+  card.style.zIndex = "99999";
 
 });
 
@@ -635,6 +639,7 @@ L.marker([-17.3700, -66.1400], {icon: verde})
 .on('click', function(){
 
   card.style.display = "block";
+  card.style.zIndex = "99999";
 
 });
 
