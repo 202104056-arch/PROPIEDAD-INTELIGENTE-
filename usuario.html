@@ -1,8 +1,321 @@
-<!-- MAPA -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
 
-<section class="mapa" id="mapa">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <h2>Mapa interactivo</h2>
+<title>Usuario | PROP CODE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  background:#f5f7fb;
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:280px;
+  height:100vh;
+  background:white;
+  border-right:1px solid #e5e7eb;
+  padding:35px 25px;
+  position:fixed;
+  left:0;
+  top:0;
+  overflow:auto;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:50px;
+}
+
+.logo-box{
+  width:45px;
+  height:45px;
+  background:#1976ff;
+  border-radius:12px;
+}
+
+.logo h1{
+  font-size:30px;
+  font-weight:800;
+}
+
+.logo span{
+  color:#1976ff;
+}
+
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.menu a{
+  text-decoration:none;
+  color:#334155;
+  padding:16px 18px;
+  border-radius:16px;
+  font-weight:600;
+  transition:0.3s;
+  cursor:pointer;
+}
+
+.menu a:hover{
+  background:#eef5ff;
+  color:#1976ff;
+}
+
+/* MAIN */
+
+.main{
+  margin-left:280px;
+  width:calc(100% - 280px);
+  padding:30px;
+}
+
+/* TOPBAR */
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.avatar{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#1976ff;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:700;
+}
+
+/* FILTROS */
+
+.filtros{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+
+.input-filtro{
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #ddd;
+  min-width:180px;
+}
+
+.buscar-btn{
+  background:#1976ff;
+  color:white;
+  border:none;
+  padding:14px 22px;
+  border-radius:14px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* LEYENDA */
+
+.leyenda{
+  display:flex;
+  gap:30px;
+  margin-bottom:20px;
+}
+
+.item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:600;
+}
+
+.color{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+}
+
+.rojo{
+  background:red;
+}
+
+.azul{
+  background:blue;
+}
+
+.verde{
+  background:green;
+}
+
+/* MAPA */
+
+.mapa{
+  background:white;
+  padding:25px;
+  border-radius:32px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+#map{
+  width:100%;
+  height:75vh;
+  border-radius:24px;
+}
+
+/* PINES */
+
+.pin{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  border:3px solid white;
+}
+
+.pin-rojo{
+  background:red;
+}
+
+.pin-azul{
+  background:blue;
+}
+
+.pin-verde{
+  background:green;
+}
+
+/* CARD */
+
+.card-propiedad{
+  position:fixed;
+  right:25px;
+  bottom:25px;
+  width:380px;
+  background:white;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 15px 45px rgba(0,0,0,0.25);
+  display:none;
+  z-index:9999;
+}
+
+.card-propiedad img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.contenido-card{
+  padding:22px;
+}
+
+.precio{
+  color:#1976ff;
+  font-size:38px;
+  font-weight:800;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:18px;
+}
+
+.info-item{
+  background:#f5f7fb;
+  padding:12px;
+  border-radius:12px;
+}
+
+.btn-favorito{
+  width:100%;
+  margin-top:20px;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#1976ff;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+  <div class="logo">
+
+    <div class="logo-box"></div>
+
+    <h1>PROP <span>CODE</span></h1>
+
+  </div>
+
+  <div class="menu">
+
+    <a>🏠 Inicio</a>
+
+    <a>❤ Favoritos</a>
+
+    <a>📍 Mapa</a>
+
+    <a>⚖ Comparador</a>
+
+    <a>👤 Perfil</a>
+
+  </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+  <div class="topbar">
+
+    <div>
+
+      <h2>Bienvenida Adriana 👋</h2>
+
+      <p>Explora propiedades inteligentes en Cochabamba</p>
+
+    </div>
+
+    <div class="avatar">
+      A
+    </div>
+
+  </div>
 
   <!-- FILTROS -->
 
@@ -18,25 +331,15 @@
     </select>
 
     <select class="input-filtro">
-      <option>Tipo de vivienda</option>
+      <option>Tipo vivienda</option>
       <option>Casa</option>
       <option>Departamento</option>
       <option>Habitación</option>
-      <option>Oficina / Tienda</option>
     </select>
 
     <input type="number" placeholder="Precio mínimo" class="input-filtro">
 
     <input type="number" placeholder="Precio máximo" class="input-filtro">
-
-    <select class="input-filtro">
-      <option># Habitaciones</option>
-      <option>1 habitación</option>
-      <option>2 habitaciones</option>
-      <option>3 habitaciones</option>
-      <option>4 habitaciones</option>
-      <option>5+ habitaciones</option>
-    </select>
 
     <button class="buscar-btn">
       Buscar
@@ -67,6 +370,109 @@
 
   <!-- MAPA -->
 
-  <div id="map"></div>
+  <section class="mapa">
 
-</section>
+    <div id="map"></div>
+
+  </section>
+
+</div>
+
+<!-- CARD -->
+
+<div class="card-propiedad" id="card">
+
+  <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200">
+
+  <div class="contenido-card">
+
+    <h2>Casa Cala Cala</h2>
+
+    <h1 class="precio">$120.000</h1>
+
+    <div class="info-grid">
+
+      <div class="info-item">🏠 Casa</div>
+
+      <div class="info-item">📐 240 m²</div>
+
+      <div class="info-item">🛏 3 habitaciones</div>
+
+      <div class="info-item">🚿 2 baños</div>
+
+    </div>
+
+    <button class="btn-favorito">
+      ❤ Guardar favorito
+    </button>
+
+  </div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+/* MAPA */
+
+const map = L.map('map').setView([-17.3935,-66.1570],13);
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+  attribution:'PROP CODE'
+}).addTo(map);
+
+/* PINES */
+
+function crearPin(colorClase){
+
+  return L.divIcon({
+    className:'',
+    html:`<div class="pin ${colorClase}"></div>`,
+    iconSize:[20,20]
+  });
+
+}
+
+const rojo = crearPin('pin-rojo');
+const azul = crearPin('pin-azul');
+const verde = crearPin('pin-verde');
+
+/* CARD */
+
+const card = document.getElementById("card");
+
+function mostrarCard(){
+
+  if(card.style.display === "block"){
+
+    card.style.display = "none";
+
+  }else{
+
+    card.style.display = "block";
+
+  }
+
+}
+
+/* MARCADORES */
+
+L.marker([-17.3835,-66.1500], {icon:rojo})
+.addTo(map)
+.on('click', mostrarCard);
+
+L.marker([-17.4000,-66.1700], {icon:azul})
+.addTo(map)
+.on('click', mostrarCard);
+
+L.marker([-17.3700,-66.1400], {icon:verde})
+.addTo(map)
+.on('click', mostrarCard);
+
+</script>
+
+</body>
+</html>
