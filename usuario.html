@@ -122,17 +122,19 @@ body{
 }
 
 .input-filtro{
-  padding:14px;
+  padding:14px 18px;
+  border:1px solid #d1d5db;
   border-radius:14px;
-  border:1px solid #ddd;
+  font-size:15px;
   min-width:180px;
+  outline:none;
 }
 
 .buscar-btn{
   background:#1976ff;
   color:white;
   border:none;
-  padding:14px 22px;
+  padding:14px 28px;
   border-radius:14px;
   font-weight:600;
   cursor:pointer;
@@ -144,6 +146,7 @@ body{
   display:flex;
   gap:30px;
   margin-bottom:20px;
+  flex-wrap:wrap;
 }
 
 .item{
@@ -177,7 +180,7 @@ body{
   background:white;
   padding:25px;
   border-radius:32px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  box-shadow:0 10px 35px rgba(0,0,0,0.08);
 }
 
 #map{
@@ -218,8 +221,8 @@ body{
   border-radius:28px;
   overflow:hidden;
   box-shadow:0 15px 45px rgba(0,0,0,0.25);
+  z-index:999999;
   display:none;
-  z-index:9999;
 }
 
 .card-propiedad img{
@@ -234,7 +237,7 @@ body{
 
 .precio{
   color:#1976ff;
-  font-size:38px;
+  font-size:42px;
   font-weight:800;
 }
 
@@ -242,13 +245,13 @@ body{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
-  margin-top:18px;
+  margin-top:20px;
 }
 
 .info-item{
   background:#f5f7fb;
-  padding:12px;
-  border-radius:12px;
+  padding:14px;
+  border-radius:14px;
 }
 
 .btn-favorito{
@@ -416,7 +419,7 @@ body{
 
 /* MAPA */
 
-const map = L.map('map').setView([-17.3935,-66.1570],13);
+const map = L.map('map').setView([-17.3935, -66.1570], 13);
 
 L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -460,15 +463,15 @@ function mostrarCard(){
 
 /* MARCADORES */
 
-L.marker([-17.3835,-66.1500], {icon:rojo})
+L.marker([-17.3835, -66.1500], {icon: rojo})
 .addTo(map)
 .on('click', mostrarCard);
 
-L.marker([-17.4000,-66.1700], {icon:azul})
+L.marker([-17.4000, -66.1700], {icon: azul})
 .addTo(map)
 .on('click', mostrarCard);
 
-L.marker([-17.3700,-66.1400], {icon:verde})
+L.marker([-17.3700, -66.1400], {icon: verde})
 .addTo(map)
 .on('click', mostrarCard);
 
