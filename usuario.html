@@ -4,128 +4,360 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Usuario | PROP CODE</title>
+<title>Mapa Inmobiliario</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  display: flex;
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial;
 }
 
-#panel {
-  width: 300px;
-  height: 100vh;
-  overflow-y: auto;
-  background: #111;
-  color: white;
-  padding: 10px;
+body{
+  background:#f5f5f5;
 }
 
-#map {
-  flex: 1;
-  height: 100vh;
+/* CONTENEDOR */
+.container{
+  width:95%;
+  margin:auto;
+  padding:20px;
 }
 
-.card {
-  background: #222;
-  padding: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  border-radius: 8px;
+/* TITULO */
+h1{
+  text-align:center;
+  margin-bottom:30px;
+  font-size:50px;
+  color:#0b1b53;
 }
 
-button {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  cursor: pointer;
+/* FILTROS */
+.filtros{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:25px;
 }
+
+.filtros select,
+.filtros button{
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  min-width:180px;
+  font-size:16px;
+}
+
+.filtros button{
+  background:#2563eb;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+
+/* CONTENIDO */
+.content{
+  display:flex;
+  gap:20px;
+}
+
+/* MAPA */
+#map{
+  width:75%;
+  height:650px;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+/* CARD DERECHA */
+.info{
+  width:25%;
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.info img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.info-content{
+  padding:20px;
+}
+
+.precio-antiguo{
+  text-decoration:line-through;
+  color:gray;
+}
+
+.precio{
+  color:#2563eb;
+  font-size:42px;
+  font-weight:bold;
+  margin:10px 0;
+}
+
+.tipo{
+  display:inline-block;
+  background:#e8f5e9;
+  color:green;
+  padding:8px 15px;
+  border-radius:20px;
+  margin-bottom:15px;
+}
+
+.detalles{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:20px 0;
+}
+
+.detalle{
+  background:#f3f4f6;
+  padding:15px;
+  border-radius:12px;
+}
+
+.descripcion{
+  color:#555;
+  line-height:1.6;
+}
+
+.btn{
+  width:100%;
+  margin-top:20px;
+  padding:15px;
+  border:none;
+  border-radius:12px;
+  background:#2563eb;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+
+  .content{
+    flex-direction:column;
+  }
+
+  #map{
+    width:100%;
+  }
+
+  .info{
+    width:100%;
+  }
+
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="panel">
-  <h3>Filtros</h3>
-  <button onclick="filtrar('todos')">Todos</button>
-  <button onclick="filtrar('venta')">Venta</button>
-  <button onclick="filtrar('alquiler')">Alquiler</button>
+<div class="container">
 
-  <h3>Propiedades</h3>
-  <div id="lista"></div>
+<h1>Mapa interactivo</h1>
+
+<!-- FILTROS -->
+<div class="filtros">
+
+<select id="tipo">
+  <option value="todos">Tipo inmobiliario</option>
+  <option value="venta">Venta</option>
+  <option value="alquiler">Alquiler</option>
+  <option value="anticretico">Anticrético</option>
+</select>
+
+<select id="zona">
+  <option value="todas">Zona</option>
+  <option value="centro">Centro</option>
+  <option value="norte">Norte</option>
+  <option value="sur">Sur</option>
+</select>
+
+<button onclick="filtrar()">Buscar</button>
+
 </div>
 
+<!-- CONTENIDO -->
+<div class="content">
+
 <div id="map"></div>
+
+<!-- CARD -->
+<div class="info">
+
+<img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop">
+
+<div class="info-content">
+
+<div class="precio-antiguo">$140.000</div>
+
+<div class="precio">$120.000</div>
+
+<div class="tipo">Venta</div>
+
+<div class="detalles">
+
+<div class="detalle">
+  🛏 3 habitaciones
+</div>
+
+<div class="detalle">
+  🚿 2 baños
+</div>
+
+<div class="detalle">
+  📐 240 m²
+</div>
+
+<div class="detalle">
+  🚗 Garaje
+</div>
+
+</div>
+
+<p class="descripcion">
+Hermosa casa moderna ubicada en Cala Cala,
+cerca de supermercados y transporte.
+</p>
+
+<button class="btn">
+Guardar en favoritos
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-// ---------------- MAPA ----------------
+
+// MAPA
 let map = L.map('map').setView([-17.393, -66.157], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: 'mapa'
+  attribution: 'OpenStreetMap'
 }).addTo(map);
 
-// ---------------- DATOS ----------------
+// DATOS
 let propiedades = [
-  {id:1, titulo:"Casa Centro", tipo:"venta", lat:-17.393, lng:-66.157},
-  {id:2, titulo:"Depa Norte", tipo:"alquiler", lat:-17.385, lng:-66.145},
-  {id:3, titulo:"Casa Sur", tipo:"venta", lat:-17.405, lng:-66.170}
+
+{
+  titulo:"Casa Centro",
+  tipo:"venta",
+  zona:"centro",
+  lat:-17.393,
+  lng:-66.157,
+  color:"green"
+},
+
+{
+  titulo:"Departamento Norte",
+  tipo:"alquiler",
+  zona:"norte",
+  lat:-17.385,
+  lng:-66.145,
+  color:"blue"
+},
+
+{
+  titulo:"Casa Sur",
+  tipo:"anticretico",
+  zona:"sur",
+  lat:-17.405,
+  lng:-66.170,
+  color:"red"
+}
+
 ];
 
 let markers = [];
 
-// ---------------- MOSTRAR ----------------
+// ICONOS COLORES
+function icono(color){
+
+  return L.divIcon({
+    html: `
+      <div style="
+        background:${color};
+        width:18px;
+        height:18px;
+        border-radius:50%;
+        border:3px solid white;
+      "></div>
+    `,
+    className:""
+  });
+
+}
+
+// MOSTRAR
 function mostrar(data){
 
-  document.getElementById("lista").innerHTML = "";
-
-  // limpiar markers
   markers.forEach(m => map.removeLayer(m));
   markers = [];
 
   data.forEach(p => {
 
-    // lista
-    let div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
+    let marker = L.marker(
+      [p.lat,p.lng],
+      {icon:icono(p.color)}
+    )
+    .addTo(map)
+    .bindPopup(`
       <b>${p.titulo}</b><br>
-      Tipo: ${p.tipo}<br>
-      <button onclick="ver(${p.lat},${p.lng})">Ver en mapa</button>
-    `;
-    document.getElementById("lista").appendChild(div);
-
-    // marker
-    let marker = L.marker([p.lat, p.lng])
-      .addTo(map)
-      .bindPopup(p.titulo);
+      ${p.tipo}<br>
+      Zona: ${p.zona}
+    `);
 
     markers.push(marker);
+
   });
+
 }
 
-// ---------------- FILTRO ----------------
-function filtrar(tipo){
+// FILTRO
+function filtrar(){
 
-  if(tipo === "todos"){
-    mostrar(propiedades);
-  } else {
-    let filtradas = propiedades.filter(p => p.tipo === tipo);
-    mostrar(filtradas);
-  }
+  let tipo = document.getElementById("tipo").value;
+  let zona = document.getElementById("zona").value;
+
+  let filtradas = propiedades.filter(p => {
+
+    let okTipo =
+      tipo === "todos" || p.tipo === tipo;
+
+    let okZona =
+      zona === "todas" || p.zona === zona;
+
+    return okTipo && okZona;
+
+  });
+
+  mostrar(filtradas);
+
 }
 
-// ---------------- VER EN MAPA ----------------
-function ver(lat,lng){
-  map.setView([lat,lng], 15);
-}
-
-// inicial
+// INICIO
 mostrar(propiedades);
 
 </script>
