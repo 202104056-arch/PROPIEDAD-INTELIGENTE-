@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Usuario | PROP CODE</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<title>Favoritos | PROP CODE</title>
 
 <style>
 
@@ -13,9 +13,11 @@ body{
   margin:0;
   font-family:Poppins;
   display:flex;
+  background:#f5f7fb;
 }
 
 /* SIDEBAR */
+
 .sidebar{
   width:250px;
   height:100vh;
@@ -24,12 +26,17 @@ body{
   border-right:1px solid #ddd;
 }
 
+.sidebar h2{
+  margin-bottom:30px;
+}
+
 .sidebar a{
   display:block;
   padding:15px;
   text-decoration:none;
   color:#333;
   font-weight:600;
+  border-radius:10px;
 }
 
 .sidebar a:hover{
@@ -38,15 +45,89 @@ body{
 }
 
 /* MAIN */
+
 .main{
   flex:1;
+  padding:30px;
+  overflow:auto;
+}
+
+.titulo{
+  font-size:40px;
+  margin-bottom:30px;
+  color:#1e293b;
+}
+
+/* GRID */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:25px;
+}
+
+/* CARD */
+
+.card{
+  background:white;
+  border-radius:25px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+/* IMG */
+
+.card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+/* BODY */
+
+.card-body{
   padding:20px;
 }
 
-#map{
-  width:100%;
-  height:90vh;
+/* TIPO */
+
+.tipo{
+  display:inline-block;
+  background:#dcfce7;
+  color:green;
+  padding:7px 14px;
   border-radius:20px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+/* PRECIO */
+
+.precio{
+  font-size:35px;
+  color:#2563eb;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+/* DETALLES */
+
+.detalles{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.detalle{
+  background:#f1f5f9;
+  padding:12px;
+  border-radius:12px;
+  font-size:14px;
 }
 
 </style>
@@ -54,40 +135,115 @@ body{
 
 <body>
 
+<!-- SIDEBAR -->
+
 <div class="sidebar">
 
   <h2>PROP CODE</h2>
 
   <a href="usuario.html">🏠 Mapa</a>
 
-  <!-- 🔥 FAVORITOS -->
   <a href="favoritos.html">❤ Favoritos</a>
 
-  <!-- 🔥 COMPARADOR -->
   <a href="comparador.html">⚖ Comparador</a>
 
 </div>
 
+<!-- MAIN -->
+
 <div class="main">
-  <div id="map"></div>
+
+  <h1 class="titulo">
+    ❤ Mis Favoritos
+  </h1>
+
+  <!-- GRID -->
+
+  <div class="grid">
+
+    <!-- CARD 1 -->
+
+    <div class="card">
+
+      <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop">
+
+      <div class="card-body">
+
+        <div class="tipo">
+          Venta
+        </div>
+
+        <div class="precio">
+          $120.000
+        </div>
+
+        <div class="detalles">
+
+          <div class="detalle">
+            🛏 3 habitaciones
+          </div>
+
+          <div class="detalle">
+            🚿 2 baños
+          </div>
+
+          <div class="detalle">
+            📐 240m²
+          </div>
+
+          <div class="detalle">
+            🚗 Garaje
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CARD 2 -->
+
+    <div class="card">
+
+      <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop">
+
+      <div class="card-body">
+
+        <div class="tipo">
+          Alquiler
+        </div>
+
+        <div class="precio">
+          $80.000
+        </div>
+
+        <div class="detalles">
+
+          <div class="detalle">
+            🛏 2 habitaciones
+          </div>
+
+          <div class="detalle">
+            🚿 1 baño
+          </div>
+
+          <div class="detalle">
+            📐 120m²
+          </div>
+
+          <div class="detalle">
+            🚗 Garaje
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script>
-
-const map = L.map('map').setView([-17.3935, -66.1570], 13);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  attribution:'PROP CODE'
-}).addTo(map);
-
-/* MARKERS */
-L.marker([-17.38,-66.15]).addTo(map).bindPopup("Casa 1");
-L.marker([-17.40,-66.17]).addTo(map).bindPopup("Casa 2");
-L.marker([-17.37,-66.14]).addTo(map).bindPopup("Casa 3");
-
-</script>
 
 </body>
 </html>
