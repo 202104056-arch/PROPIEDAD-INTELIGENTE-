@@ -12,8 +12,6 @@ href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <style>
 
-/* ================= RESET ================= */
-
 *{
   margin:0;
   padding:0;
@@ -27,7 +25,7 @@ body{
   overflow:hidden;
 }
 
-/* ================= SIDEBAR IZQUIERDA ================= */
+/* SIDEBAR */
 
 .sidebar{
 
@@ -57,8 +55,6 @@ body{
   color:#2563eb;
 }
 
-/* MENU */
-
 .menu{
 
   display:flex;
@@ -78,6 +74,8 @@ body{
   font-weight:bold;
 
   transition:.3s;
+
+  cursor:pointer;
 }
 
 .menu a:hover{
@@ -87,7 +85,7 @@ body{
   transform:translateX(5px);
 }
 
-/* ================= CONTENIDO ================= */
+/* MAIN */
 
 .main{
 
@@ -97,8 +95,6 @@ body{
 
   overflow:auto;
 }
-
-/* ================= TITULO ================= */
 
 .titulo{
 
@@ -111,7 +107,7 @@ body{
   color:#0f172a;
 }
 
-/* ================= FILTROS ================= */
+/* FILTROS */
 
 .filtros{
 
@@ -125,8 +121,6 @@ body{
 
   margin-bottom:25px;
 }
-
-/* INPUTS */
 
 .filtros input,
 .filtros select,
@@ -143,18 +137,6 @@ body{
   font-size:15px;
 }
 
-/* FOCUS */
-
-.filtros input:focus,
-.filtros select:focus{
-
-  outline:none;
-
-  border:1px solid #2563eb;
-}
-
-/* BOTON */
-
 .filtros button{
 
   background:#2563eb;
@@ -166,16 +148,9 @@ body{
   cursor:pointer;
 
   font-weight:bold;
-
-  transition:.3s;
 }
 
-.filtros button:hover{
-
-  background:#1d4ed8;
-}
-
-/* ================= MAPA ================= */
+/* MAPA */
 
 .map-container{
 
@@ -189,9 +164,11 @@ body{
   border-radius:30px;
 
   overflow:hidden;
+
+  z-index:1;
 }
 
-/* ================= TARJETA ================= */
+/* CARD */
 
 .card{
 
@@ -215,8 +192,6 @@ body{
   z-index:1000;
 }
 
-/* IMG */
-
 .card img{
 
   width:100%;
@@ -226,14 +201,10 @@ body{
   object-fit:cover;
 }
 
-/* BODY */
-
 .card-body{
 
   padding:20px;
 }
-
-/* PRECIO */
 
 .precio{
 
@@ -245,8 +216,6 @@ body{
 
   margin:15px 0;
 }
-
-/* TIPO */
 
 .tipo{
 
@@ -262,8 +231,6 @@ body{
 
   font-weight:bold;
 }
-
-/* DETALLES */
 
 .detalles{
 
@@ -285,8 +252,6 @@ body{
   border-radius:12px;
 }
 
-/* DESCRIPCION */
-
 .descripcion{
 
   color:#64748b;
@@ -295,8 +260,6 @@ body{
 
   margin-top:10px;
 }
-
-/* BOTON */
 
 .btn{
 
@@ -319,12 +282,7 @@ body{
   cursor:pointer;
 }
 
-.btn:hover{
-
-  background:#1d4ed8;
-}
-
-/* ================= FAVORITOS ================= */
+/* FAVORITOS */
 
 #favoritosCard{
 
@@ -344,9 +302,34 @@ body{
   display:none;
 
   z-index:1000;
+
+  padding:20px;
 }
 
-/* ================= RESPONSIVE ================= */
+.favorito-item{
+
+  display:flex;
+
+  gap:10px;
+
+  margin-bottom:15px;
+
+  background:#f8fafc;
+
+  padding:10px;
+
+  border-radius:12px;
+}
+
+.favorito-item img{
+
+  width:70px;
+  height:70px;
+
+  object-fit:cover;
+
+  border-radius:10px;
+}
 
 @media(max-width:1200px){
 
@@ -365,24 +348,12 @@ body{
     height:70vh;
   }
 
-  .card{
-
-    position:relative;
-
-    width:100%;
-
-    top:20px;
-    right:0;
-  }
-
 }
 
 </style>
 </head>
 
 <body>
-
-<!-- ================= SIDEBAR ================= -->
 
 <div class="sidebar">
 
@@ -392,31 +363,27 @@ body{
 
   <div class="menu">
 
-    <a href="#">🏠 Inicio</a>
+    <a>🏠 Inicio</a>
 
-    <a href="#" id="btnFavoritos">
+    <a id="btnFavoritos">
       ❤️ Favoritos
     </a>
 
-    <a href="#">📍 Mapa</a>
+    <a>📍 Mapa</a>
 
-    <a href="#">⚖️ Comparador</a>
+    <a>⚖️ Comparador</a>
 
-    <a href="#">👤 Perfil</a>
+    <a>👤 Perfil</a>
 
   </div>
 
 </div>
-
-<!-- ================= MAIN ================= -->
 
 <div class="main">
 
   <h1 class="titulo">
     Mapa interactivo
   </h1>
-
-  <!-- ================= FILTROS ================= -->
 
   <div class="filtros">
 
@@ -443,30 +410,6 @@ body{
 
     </select>
 
-    <select>
-
-      <option>
-        Tipo de vivienda
-      </option>
-
-      <option>
-        Casa
-      </option>
-
-      <option>
-        Departamento
-      </option>
-
-      <option>
-        Oficina
-      </option>
-
-      <option>
-        Terreno
-      </option>
-
-    </select>
-
     <select id="zona">
 
       <option value="todas">
@@ -489,29 +432,6 @@ body{
         Oeste
       </option>
 
-      <option value="este">
-        Este
-      </option>
-
-    </select>
-
-    <input type="number"
-    placeholder="Precio mínimo">
-
-    <input type="number"
-    placeholder="Precio máximo">
-
-    <select>
-
-      <option>
-        # Habitaciones
-      </option>
-
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4+</option>
-
     </select>
 
     <button onclick="filtrar()">
@@ -520,57 +440,27 @@ body{
 
   </div>
 
-  <!-- ================= MAPA ================= -->
-
   <div class="map-container">
 
     <div id="map"></div>
 
-    <!-- ================= TARJETA ================= -->
+    <!-- CARD -->
 
     <div class="card" id="card">
 
-      <img id="imgCasa"
-      src="">
+      <img id="imgCasa" src="">
 
       <div class="card-body">
 
-        <div class="tipo"
-        id="tipoCasa">
+        <div class="tipo" id="tipoCasa">
           Venta
         </div>
 
-        <div class="precio"
-        id="precioCasa">
+        <div class="precio" id="precioCasa">
           $120.000
         </div>
 
-        <div class="detalles">
-
-          <div class="detalle">
-            🛏 3 habitaciones
-          </div>
-
-          <div class="detalle">
-            🚿 2 baños
-          </div>
-
-          <div class="detalle">
-            📐 240m²
-          </div>
-
-          <div class="detalle">
-            🚗 Garaje
-          </div>
-
-        </div>
-
-        <p class="descripcion">
-          Hermosa propiedad moderna ubicada
-          cerca de supermercados y transporte.
-        </p>
-
-        <button class="btn">
+        <button class="btn" id="guardarBtn">
           Guardar favorito
         </button>
 
@@ -578,23 +468,17 @@ body{
 
     </div>
 
-    <!-- ================= VENTANA FAVORITOS ================= -->
+    <!-- FAVORITOS -->
 
-    <div class="card" id="favoritosCard">
+    <div id="favoritosCard">
 
-      <div class="card-body">
+      <h2 style="margin-bottom:20px;">
+        ❤️ Favoritos
+      </h2>
 
-        <h2 style="margin-bottom:20px;color:#0f172a;">
-          ❤️ Favoritos
-        </h2>
+      <div id="listaFavoritos">
 
-        <div id="listaFavoritos">
-
-          <p style="color:#64748b;">
-            No tienes favoritos guardados.
-          </p>
-
-        </div>
+        <p>No tienes favoritos.</p>
 
       </div>
 
@@ -608,7 +492,7 @@ body{
 
 <script>
 
-/* ================= MAPA ================= */
+/* MAPA */
 
 let map = L.map('map')
 .setView([-17.393,-66.157],13);
@@ -620,87 +504,39 @@ L.tileLayer(
 }
 ).addTo(map);
 
-/* ================= DATOS ================= */
+/* DATOS */
 
 let propiedades = [
 
 {
   titulo:"Casa Norte",
-
   tipo:"venta",
-
   zona:"norte",
-
   precio:"$120.000",
-
   lat:-17.385,
   lng:-66.145,
-
   color:"green",
-
   img:"https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop"
 },
 
 {
   titulo:"Departamento Centro",
-
   tipo:"alquiler",
-
   zona:"centro",
-
   precio:"$80.000",
-
   lat:-17.393,
   lng:-66.157,
-
   color:"blue",
-
   img:"https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop"
-},
-
-{
-  titulo:"Casa Sur",
-
-  tipo:"anticretico",
-
-  zona:"sur",
-
-  precio:"$95.000",
-
-  lat:-17.405,
-  lng:-66.170,
-
-  color:"red",
-
-  img:"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200&auto=format&fit=crop"
-},
-
-{
-  titulo:"Casa Oeste",
-
-  tipo:"venta",
-
-  zona:"oeste",
-
-  precio:"$150.000",
-
-  lat:-17.390,
-  lng:-66.185,
-
-  color:"green",
-
-  img:"https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1200&auto=format&fit=crop"
 }
 
 ];
 
 let markers=[];
-
-/* ================= FAVORITOS ================= */
-
 let favoritos=[];
+let propiedadActual=null;
 
-/* ================= ICONO ================= */
+/* ICONOS */
 
 function crearIcono(color){
 
@@ -713,7 +549,6 @@ function crearIcono(color){
         height:18px;
         border-radius:50%;
         border:3px solid white;
-        box-shadow:0 0 10px rgba(0,0,0,.3);
       "></div>
     `,
 
@@ -723,7 +558,7 @@ function crearIcono(color){
 
 }
 
-/* ================= MOSTRAR ================= */
+/* MOSTRAR */
 
 function mostrar(data){
 
@@ -742,10 +577,10 @@ function mostrar(data){
 
     marker.on('click',()=>{
 
-      let card =
-      document.getElementById("card");
+      propiedadActual = p;
 
-      card.style.display="block";
+      document.getElementById("card")
+      .style.display="block";
 
       document.getElementById("precioCasa")
       .innerHTML = p.precio;
@@ -756,17 +591,6 @@ function mostrar(data){
       document.getElementById("imgCasa")
       .src = p.img;
 
-      /* GUARDAR DATA ACTUAL */
-
-      document.querySelector(".btn")
-      .setAttribute("data-precio",p.precio);
-
-      document.querySelector(".btn")
-      .setAttribute("data-tipo",p.tipo);
-
-      document.querySelector(".btn")
-      .setAttribute("data-img",p.img);
-
     });
 
     markers.push(marker);
@@ -775,7 +599,7 @@ function mostrar(data){
 
 }
 
-/* ================= FILTRAR ================= */
+/* FILTRO */
 
 function filtrar(){
 
@@ -799,112 +623,67 @@ function filtrar(){
 
   mostrar(filtradas);
 
-  document.getElementById("card")
-  .style.display="none";
 }
 
-/* ================= ABRIR FAVORITOS ================= */
+/* FAVORITOS */
 
 document.getElementById("btnFavoritos")
-.addEventListener("click",(e)=>{
+.addEventListener("click",()=>{
 
-  e.preventDefault();
-
-  let ventana =
+  let panel =
   document.getElementById("favoritosCard");
 
-  if(ventana.style.display==="block"){
+  if(panel.style.display==="block"){
 
-    ventana.style.display="none";
+    panel.style.display="none";
 
   }else{
 
-    ventana.style.display="block";
+    panel.style.display="block";
 
-    renderFavoritos();
   }
 
 });
 
-/* ================= GUARDAR FAVORITO ================= */
+/* GUARDAR */
 
-document.querySelector(".btn")
+document.getElementById("guardarBtn")
 .addEventListener("click",()=>{
 
-  let precio =
-  document.querySelector(".btn")
-  .getAttribute("data-precio");
+  if(!propiedadActual) return;
 
-  let tipo =
-  document.querySelector(".btn")
-  .getAttribute("data-tipo");
-
-  let img =
-  document.querySelector(".btn")
-  .getAttribute("data-img");
-
-  favoritos.push({
-    precio,
-    tipo,
-    img
-  });
+  favoritos.push(propiedadActual);
 
   renderFavoritos();
 
 });
 
-/* ================= RENDER FAVORITOS ================= */
+/* RENDER */
 
 function renderFavoritos(){
 
-  let contenedor =
+  let lista =
   document.getElementById("listaFavoritos");
 
   if(favoritos.length===0){
 
-    contenedor.innerHTML = `
-      <p style="color:#64748b;">
-        No tienes favoritos guardados.
-      </p>
-    `;
+    lista.innerHTML =
+    "<p>No tienes favoritos.</p>";
 
     return;
   }
 
-  contenedor.innerHTML = favoritos.map(f=>`
+  lista.innerHTML = favoritos.map(f=>`
 
-    <div style="
-      display:flex;
-      gap:10px;
-      margin-bottom:15px;
-      background:#f8fafc;
-      padding:10px;
-      border-radius:12px;
-      align-items:center;
-    ">
+    <div class="favorito-item">
 
-      <img src="${f.img}"
-      style="
-        width:70px;
-        height:70px;
-        object-fit:cover;
-        border-radius:10px;
-      ">
+      <img src="${f.img}">
 
       <div>
 
-        <div style="
-          font-weight:bold;
-          color:#2563eb;
-        ">
-          ${f.precio}
-        </div>
+        <strong>${f.precio}</strong>
 
-        <div style="
-          color:#64748b;
-        ">
-          ${f.tipo}
-        </div>
+        <p>${f.tipo}</p>
 
       </div>
 
@@ -914,7 +693,7 @@ function renderFavoritos(){
 
 }
 
-/* ================= INICIO ================= */
+/* INICIO */
 
 mostrar(propiedades);
 
