@@ -218,6 +218,7 @@ nav a{
   height:600px;
   margin:auto;
   border-radius:25px;
+  z-index:1;
 }
 
 /* PINES */
@@ -252,8 +253,12 @@ nav a{
   border-radius:28px;
   overflow:hidden;
   box-shadow:0 15px 45px rgba(0,0,0,0.25);
-  z-index:99999;
+
+  z-index:9999999;
+
   display:none;
+
+  pointer-events:auto;
 }
 
 .card-propiedad img{
@@ -369,7 +374,7 @@ nav a{
   display:none;
   justify-content:center;
   align-items:center;
-  z-index:999999;
+  z-index:99999999;
 }
 
 .modal-contenido{
