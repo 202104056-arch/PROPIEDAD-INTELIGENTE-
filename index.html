@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -26,6 +27,8 @@ body{
   background:#f5f7fb;
   color:#0c1633;
 }
+
+/* HEADER */
 
 header{
   width:100%;
@@ -87,6 +90,8 @@ nav a{
   font-weight:600;
 }
 
+/* HERO */
+
 .hero{
   min-height:85vh;
   display:flex;
@@ -125,6 +130,8 @@ nav a{
   color:#4b5563;
 }
 
+/* MAPA */
+
 .mapa{
   padding:80px 40px;
   background:white;
@@ -135,6 +142,43 @@ nav a{
   font-size:45px;
   margin-bottom:25px;
 }
+
+/* FILTROS */
+
+.filtros{
+  width:90%;
+  margin:0 auto 35px auto;
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.input-filtro{
+  padding:14px 18px;
+  border:1px solid #d1d5db;
+  border-radius:14px;
+  font-size:15px;
+  min-width:180px;
+  outline:none;
+  background:white;
+}
+
+.input-filtro:focus{
+  border-color:#1976ff;
+}
+
+.buscar-btn{
+  background:#1976ff;
+  color:white;
+  border:none;
+  padding:14px 28px;
+  border-radius:14px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* LEYENDA */
 
 .leyenda{
   display:flex;
@@ -157,9 +201,19 @@ nav a{
   border-radius:50%;
 }
 
-.rojo{background:red;}
-.azul{background:blue;}
-.verde{background:green;}
+.rojo{
+  background:red;
+}
+
+.azul{
+  background:blue;
+}
+
+.verde{
+  background:green;
+}
+
+/* MAPA */
 
 #map{
   width:90%;
@@ -167,6 +221,8 @@ nav a{
   margin:auto;
   border-radius:25px;
 }
+
+/* PINES */
 
 .pin{
   width:20px;
@@ -189,6 +245,30 @@ nav a{
 
 html{
   scroll-behavior:smooth;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  header{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  nav{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .hero h1{
+    font-size:52px;
+  }
+
+  .hero p{
+    font-size:22px;
+  }
+
 }
 
 </style>
@@ -233,9 +313,65 @@ html{
 
 </section>
 
+<!-- MAPA -->
+
 <section class="mapa" id="mapa">
 
   <h2>Mapa interactivo</h2>
+
+  <!-- FILTROS -->
+
+  <div class="filtros">
+
+    <input 
+      type="text" 
+      placeholder="📍 Buscar ubicación..."
+      class="input-filtro"
+    >
+
+    <select class="input-filtro">
+      <option>Tipo inmobiliario</option>
+      <option>Anticrético</option>
+      <option>Alquiler</option>
+      <option>Compra</option>
+    </select>
+
+    <select class="input-filtro">
+      <option>Tipo de vivienda</option>
+      <option>Casa</option>
+      <option>Departamento</option>
+      <option>Habitación</option>
+      <option>Oficina / Tienda</option>
+    </select>
+
+    <input 
+      type="number" 
+      placeholder="Precio mínimo"
+      class="input-filtro"
+    >
+
+    <input 
+      type="number" 
+      placeholder="Precio máximo"
+      class="input-filtro"
+    >
+
+    <select class="input-filtro">
+      <option># Habitaciones</option>
+      <option>1 habitación</option>
+      <option>2 habitaciones</option>
+      <option>3 habitaciones</option>
+      <option>4 habitaciones</option>
+      <option>5+ habitaciones</option>
+    </select>
+
+    <button class="buscar-btn">
+      Buscar
+    </button>
+
+  </div>
+
+  <!-- LEYENDA -->
 
   <div class="leyenda">
 
@@ -264,11 +400,15 @@ html{
 
 <script>
 
+/* MAPA */
+
 const map = L.map('map').setView([-17.3935, -66.1570], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: 'PROP CODE'
+  attribution:'PROP CODE'
 }).addTo(map);
+
+/* CREAR PINES */
 
 function crearPin(colorClase){
 
@@ -283,6 +423,8 @@ function crearPin(colorClase){
 const rojo = crearPin('pin-rojo');
 const azul = crearPin('pin-azul');
 const verde = crearPin('pin-verde');
+
+/* PINES EN EL MAPA */
 
 L.marker([-17.3835, -66.1500], {icon: rojo})
 .addTo(map)
