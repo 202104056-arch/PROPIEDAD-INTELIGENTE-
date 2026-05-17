@@ -324,6 +324,28 @@ body{
   background:#1d4ed8;
 }
 
+/* ================= FAVORITOS ================= */
+
+#favoritosCard{
+
+  position:absolute;
+
+  top:20px;
+  left:20px;
+
+  width:320px;
+
+  background:white;
+
+  border-radius:25px;
+
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+  display:none;
+
+  z-index:1000;
+}
+
 /* ================= RESPONSIVE ================= */
 
 @media(max-width:1200px){
@@ -372,7 +394,9 @@ body{
 
     <a href="#">🏠 Inicio</a>
 
-    <a href="#">❤️ Favoritos</a>
+    <a href="#" id="btnFavoritos">
+      ❤️ Favoritos
+    </a>
 
     <a href="#">📍 Mapa</a>
 
@@ -396,11 +420,9 @@ body{
 
   <div class="filtros">
 
-    <!-- UBICACION -->
     <input type="text"
     placeholder="📍 Ubicación">
 
-    <!-- TIPO -->
     <select id="tipo">
 
       <option value="todos">
@@ -421,7 +443,6 @@ body{
 
     </select>
 
-    <!-- TIPO VIVIENDA -->
     <select>
 
       <option>
@@ -446,7 +467,6 @@ body{
 
     </select>
 
-    <!-- NUEVO FILTRO ZONA -->
     <select id="zona">
 
       <option value="todas">
@@ -475,14 +495,12 @@ body{
 
     </select>
 
-    <!-- PRECIOS -->
     <input type="number"
     placeholder="Precio mínimo">
 
     <input type="number"
     placeholder="Precio máximo">
 
-    <!-- HABITACIONES -->
     <select>
 
       <option>
@@ -496,7 +514,6 @@ body{
 
     </select>
 
-    <!-- BOTON -->
     <button onclick="filtrar()">
       Buscar
     </button>
@@ -556,6 +573,28 @@ body{
         <button class="btn">
           Guardar favorito
         </button>
+
+      </div>
+
+    </div>
+
+    <!-- ================= VENTANA FAVORITOS ================= -->
+
+    <div class="card" id="favoritosCard">
+
+      <div class="card-body">
+
+        <h2 style="margin-bottom:20px;color:#0f172a;">
+          ❤️ Favoritos
+        </h2>
+
+        <div id="listaFavoritos">
+
+          <p style="color:#64748b;">
+            No tienes favoritos guardados.
+          </p>
+
+        </div>
 
       </div>
 
@@ -657,6 +696,10 @@ let propiedades = [
 
 let markers=[];
 
+/* ================= FAVORITOS ================= */
+
+let favoritos=[];
+
 /* ================= ICONO ================= */
 
 function crearIcono(color){
@@ -702,25 +745,27 @@ function mostrar(data){
       let card =
       document.getElementById("card");
 
-      // TOGGLE
-      if(card.style.display==="block"){
+      card.style.display="block";
 
-        card.style.display="none";
+      document.getElementById("precioCasa")
+      .innerHTML = p.precio;
 
-      }else{
+      document.getElementById("tipoCasa")
+      .innerHTML = p.tipo;
 
-        card.style.display="block";
+      document.getElementById("imgCasa")
+      .src = p.img;
 
-        document.getElementById("precioCasa")
-        .innerHTML = p.precio;
+      /* GUARDAR DATA ACTUAL */
 
-        document.getElementById("tipoCasa")
-        .innerHTML = p.tipo;
+      document.querySelector(".btn")
+      .setAttribute("data-precio",p.precio);
 
-        document.getElementById("imgCasa")
-        .src = p.img;
+      document.querySelector(".btn")
+      .setAttribute("data-tipo",p.tipo);
 
-      }
+      document.querySelector(".btn")
+      .setAttribute("data-img",p.img);
 
     });
 
@@ -754,9 +799,119 @@ function filtrar(){
 
   mostrar(filtradas);
 
-  // ocultar tarjeta
   document.getElementById("card")
   .style.display="none";
+}
+
+/* ================= ABRIR FAVORITOS ================= */
+
+document.getElementById("btnFavoritos")
+.addEventListener("click",(e)=>{
+
+  e.preventDefault();
+
+  let ventana =
+  document.getElementById("favoritosCard");
+
+  if(ventana.style.display==="block"){
+
+    ventana.style.display="none";
+
+  }else{
+
+    ventana.style.display="block";
+
+    renderFavoritos();
+  }
+
+});
+
+/* ================= GUARDAR FAVORITO ================= */
+
+document.querySelector(".btn")
+.addEventListener("click",()=>{
+
+  let precio =
+  document.querySelector(".btn")
+  .getAttribute("data-precio");
+
+  let tipo =
+  document.querySelector(".btn")
+  .getAttribute("data-tipo");
+
+  let img =
+  document.querySelector(".btn")
+  .getAttribute("data-img");
+
+  favoritos.push({
+    precio,
+    tipo,
+    img
+  });
+
+  renderFavoritos();
+
+});
+
+/* ================= RENDER FAVORITOS ================= */
+
+function renderFavoritos(){
+
+  let contenedor =
+  document.getElementById("listaFavoritos");
+
+  if(favoritos.length===0){
+
+    contenedor.innerHTML = `
+      <p style="color:#64748b;">
+        No tienes favoritos guardados.
+      </p>
+    `;
+
+    return;
+  }
+
+  contenedor.innerHTML = favoritos.map(f=>`
+
+    <div style="
+      display:flex;
+      gap:10px;
+      margin-bottom:15px;
+      background:#f8fafc;
+      padding:10px;
+      border-radius:12px;
+      align-items:center;
+    ">
+
+      <img src="${f.img}"
+      style="
+        width:70px;
+        height:70px;
+        object-fit:cover;
+        border-radius:10px;
+      ">
+
+      <div>
+
+        <div style="
+          font-weight:bold;
+          color:#2563eb;
+        ">
+          ${f.precio}
+        </div>
+
+        <div style="
+          color:#64748b;
+        ">
+          ${f.tipo}
+        </div>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
 }
 
 /* ================= INICIO ================= */
