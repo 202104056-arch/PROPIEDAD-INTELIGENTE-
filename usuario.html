@@ -12,41 +12,97 @@
 
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins', sans-serif;}
+/* ===== BASE ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
 
-body{background:#f5f7fb;display:flex;}
+body{
+  background:#f5f7fb;
+  display:flex;
+}
 
-/* SIDEBAR */
-.sidebar{width:280px;height:100vh;background:white;border-right:1px solid #e5e7eb;padding:35px 25px;position:fixed;left:0;top:0;}
+/* ===== SIDEBAR ===== */
+.sidebar{
+  width:280px;
+  height:100vh;
+  background:white;
+  border-right:1px solid #e5e7eb;
+  padding:35px 25px;
+  position:fixed;
+  left:0;
+  top:0;
+}
 
-.logo{display:flex;align-items:center;gap:12px;margin-bottom:50px;}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:50px;
+}
 
-.logo-box{width:45px;height:45px;background:#1976ff;border-radius:12px;}
+.logo-box{
+  width:45px;
+  height:45px;
+  background:#1976ff;
+  border-radius:12px;
+}
 
-.logo h1{font-size:30px;font-weight:800;}
+.logo h1{
+  font-size:30px;
+  font-weight:800;
+}
 
-.logo span{color:#1976ff;}
+.logo span{
+  color:#1976ff;
+}
 
-.menu{display:flex;flex-direction:column;gap:14px;}
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
 
-.menu a{text-decoration:none;color:#334155;padding:16px 18px;border-radius:16px;font-weight:600;}
+.menu a{
+  text-decoration:none;
+  color:#334155;
+  padding:16px 18px;
+  border-radius:16px;
+  font-weight:600;
+}
 
-.menu a:hover{background:#eef5ff;color:#1976ff;}
+.menu a:hover{
+  background:#eef5ff;
+  color:#1976ff;
+}
 
-/* MAIN */
-.main{margin-left:280px;width:calc(100% - 280px);padding:30px;display:flex;gap:20px;}
+/* ===== MAIN ===== */
+.main{
+  margin-left:280px;
+  width:calc(100% - 280px);
+  padding:30px;
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+}
 
-/* FILTROS */
+/* ===== FILTROS (ARREGLADO Y FORZADO VISIBILIDAD) ===== */
 .filtros{
   width:260px;
   background:white;
   padding:20px;
   border-radius:24px;
   box-shadow:0 10px 35px rgba(0,0,0,0.08);
-  height:fit-content;
+  display:block;
+  z-index:10;
 }
 
-.filtros h3{margin-bottom:15px;}
+.filtros h3{
+  margin-bottom:15px;
+}
 
 .filtros select,
 .filtros input{
@@ -57,7 +113,17 @@ body{background:#f5f7fb;display:flex;}
   border:1px solid #ddd;
 }
 
-/* MAPA */
+.filtros button{
+  width:100%;
+  padding:10px;
+  border:none;
+  background:#1976ff;
+  color:white;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+/* ===== MAPA ===== */
 .mapa{
   flex:1;
   background:white;
@@ -66,15 +132,25 @@ body{background:#f5f7fb;display:flex;}
   box-shadow:0 10px 35px rgba(0,0,0,0.08);
 }
 
-#map{width:100%;height:75vh;border-radius:24px;}
+#map{
+  width:100%;
+  height:75vh;
+  border-radius:24px;
+}
 
-/* PINES */
-.pin{width:20px;height:20px;border-radius:50%;border:3px solid white;}
+/* ===== PINES ===== */
+.pin{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  border:3px solid white;
+}
+
 .pin-rojo{background:red;}
 .pin-azul{background:blue;}
 .pin-verde{background:green;}
 
-/* CARD */
+/* ===== CARD ===== */
 .card-propiedad{
   position:fixed;
   right:25px;
@@ -87,15 +163,34 @@ body{background:#f5f7fb;display:flex;}
   display:none;
 }
 
-.card-propiedad img{width:100%;height:220px;object-fit:cover;}
+.card-propiedad img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
 
-.contenido-card{padding:22px;}
+.contenido-card{
+  padding:22px;
+}
 
-.precio{color:#1976ff;font-size:40px;font-weight:800;}
+.precio{
+  color:#1976ff;
+  font-size:40px;
+  font-weight:800;
+}
 
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
 
-.info-item{background:#f5f7fb;padding:14px;border-radius:14px;}
+.info-item{
+  background:#f5f7fb;
+  padding:14px;
+  border-radius:14px;
+}
 
 .btn-favorito{
   width:100%;
@@ -130,6 +225,7 @@ body{background:#f5f7fb;display:flex;}
     <a>⚖ Comparador</a>
     <a>👤 Perfil</a>
   </div>
+
 </div>
 
 <!-- MAIN -->
@@ -137,6 +233,7 @@ body{background:#f5f7fb;display:flex;}
 
   <!-- FILTROS -->
   <div class="filtros">
+
     <h3>🔎 Filtros</h3>
 
     <select id="tipo">
@@ -149,9 +246,8 @@ body{background:#f5f7fb;display:flex;}
 
     <input type="number" id="habitaciones" placeholder="Habitaciones mínimas">
 
-    <button onclick="aplicarFiltros()" style="width:100%;padding:10px;border:none;background:#1976ff;color:white;border-radius:12px;cursor:pointer;">
-      Aplicar filtros
-    </button>
+    <button onclick="aplicarFiltros()">Aplicar filtros</button>
+
   </div>
 
   <!-- MAPA -->
@@ -189,20 +285,23 @@ body{background:#f5f7fb;display:flex;}
 
 <script>
 
+/* MAPA */
 const map = L.map('map').setView([-17.3935, -66.1570], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'PROP CODE'
 }).addTo(map);
 
-function crearPin(colorClase){
+/* PINES */
+function crearPin(color){
   return L.divIcon({
     className:'',
-    html:`<div class="pin ${colorClase}"></div>`,
+    html:`<div class="pin ${color}"></div>`,
     iconSize:[20,20]
   });
 }
 
+/* DATOS */
 const propiedades = [
   {
     lat:-17.3835,
@@ -210,7 +309,7 @@ const propiedades = [
     tipo:"Casa",
     precio:120000,
     habitaciones:3,
-    icon:crearPin('pin-rojo')
+    icon:crearPin("pin-rojo")
   },
   {
     lat:-17.4000,
@@ -218,26 +317,28 @@ const propiedades = [
     tipo:"Departamento",
     precio:80000,
     habitaciones:2,
-    icon:crearPin('pin-azul')
+    icon:crearPin("pin-azul")
   }
 ];
 
 let markers = [];
 
-function cargarMarcadores(lista){
+/* CARGAR MARCADORES */
+function cargar(lista){
+
   markers.forEach(m => map.removeLayer(m));
   markers = [];
 
   lista.forEach(p => {
-    let m = L.marker([p.lat,p.lng],{icon:p.icon})
+    let m = L.marker([p.lat, p.lng], {icon:p.icon})
       .addTo(map)
-      .on('click', mostrarCard);
+      .on("click", mostrarCard);
 
     markers.push(m);
   });
 }
 
-cargarMarcadores(propiedades);
+cargar(propiedades);
 
 /* CARD */
 const card = document.getElementById("card");
@@ -259,7 +360,7 @@ function aplicarFiltros(){
     p.habitaciones >= habitaciones
   );
 
-  cargarMarcadores(filtradas);
+  cargar(filtradas);
 }
 
 /* FAVORITOS */
