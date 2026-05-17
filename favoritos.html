@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Favoritos | PROP CODE</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  background:#f5f7fb;
+  padding:40px;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:40px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-box{
+  width:45px;
+  height:45px;
+  background:#1976ff;
+  border-radius:12px;
+}
+
+.logo h1{
+  font-size:32px;
+  font-weight:800;
+}
+
+.logo span{
+  color:#1976ff;
+}
+
+.volver{
+  text-decoration:none;
+  background:#1976ff;
+  color:white;
+  padding:14px 22px;
+  border-radius:14px;
+  font-weight:700;
+}
+
+.titulo{
+  margin-bottom:35px;
+}
+
+.titulo h2{
+  font-size:42px;
+  color:#0f172a;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:
+  repeat(auto-fit,minmax(320px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:white;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.card img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+}
+
+.info{
+  padding:22px;
+}
+
+.precio{
+  font-size:38px;
+  color:#1976ff;
+  font-weight:800;
+  margin-bottom:12px;
+}
+
+.descripcion{
+  color:#555;
+  line-height:1.7;
+  margin-bottom:18px;
+}
+
+.tags{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.tag{
+  background:#eef5ff;
+  color:#1976ff;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:600;
+  font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+  <div class="logo">
+
+    <div class="logo-box"></div>
+
+    <h1>
+      PROP <span>CODE</span>
+    </h1>
+
+  </div>
+
+  <a href="usuario.html" class="volver">
+
+    ← Volver al mapa
+
+  </a>
+
+</div>
+
+<!-- TITULO -->
+
+<div class="titulo">
+
+  <h2>
+    ❤ Tus propiedades favoritas
+  </h2>
+
+</div>
+
+<!-- GRID -->
+
+<div class="grid">
+
+  <!-- CARD 1 -->
+
+  <div class="card">
+
+    <img 
+      src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200"
+    >
+
+    <div class="info">
+
+      <h2 class="precio">
+        $120.000
+      </h2>
+
+      <p class="descripcion">
+
+        Hermosa casa moderna ubicada en Cala Cala,
+        Zona Norte de Cochabamba.
+
+      </p>
+
+      <div class="tags">
+
+        <div class="tag">
+          🏠 Casa
+        </div>
+
+        <div class="tag">
+          📐 240 m²
+        </div>
+
+        <div class="tag">
+          🛏 3 habitaciones
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CARD 2 -->
+
+  <div class="card">
+
+    <img 
+      src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200"
+    >
+
+    <div class="info">
+
+      <h2 class="precio">
+        $3.500
+      </h2>
+
+      <p class="descripcion">
+
+        Departamento moderno en alquiler
+        en la Zona Central.
+
+      </p>
+
+      <div class="tags">
+
+        <div class="tag">
+          🏢 Departamento
+        </div>
+
+        <div class="tag">
+          📐 120 m²
+        </div>
+
+        <div class="tag">
+          🛏 2 habitaciones
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CARD 3 -->
+
+  <div class="card">
+
+    <img 
+      src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200"
+    >
+
+    <div class="info">
+
+      <h2 class="precio">
+        $95.000
+      </h2>
+
+      <p class="descripcion">
+
+        Casa amplia ubicada en la Zona Sur
+        de Cochabamba.
+
+      </p>
+
+      <div class="tags">
+
+        <div class="tag">
+          🏠 Casa
+        </div>
+
+        <div class="tag">
+          📐 300 m²
+        </div>
+
+        <div class="tag">
+          🛏 4 habitaciones
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
