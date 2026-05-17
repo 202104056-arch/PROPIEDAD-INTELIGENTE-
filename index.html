@@ -5,113 +5,205 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PROP CODE</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #1e3a8a;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins', sans-serif;
     }
 
-    h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
+    body{
+      background:#f5f7fb;
+      color:#0c1633;
     }
 
-    p {
-      margin-bottom: 40px;
-      color: #dbeafe;
+    /* NAVBAR */
+
+    header{
+      width:100%;
+      background:white;
+      border-bottom:1px solid #e5e7eb;
+      padding:18px 70px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
     }
 
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
-      width: 80%;
-      max-width: 700px;
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:30px;
+      font-weight:800;
     }
 
-    button {
-      padding: 15px;
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
+    .logo span{
+      color:#1976ff;
     }
 
-    .map {
-      background: #38bdf8;
-      color: white;
+    .logo-box{
+      width:45px;
+      height:45px;
+      background:#1976ff;
+      border-radius:12px;
     }
 
-    .map:hover {
-      background: #0ea5e9;
+    nav{
+      display:flex;
+      gap:40px;
     }
 
-    .user {
-      background: white;
-      color: #1e3a8a;
+    nav a{
+      text-decoration:none;
+      color:#445;
+      font-weight:500;
+      transition:0.3s;
     }
 
-    .user:hover {
-      background: #e2e8f0;
+    nav a:hover{
+      color:#1976ff;
     }
 
-    .agent {
-      background: #0f172a;
-      color: white;
+    .buttons{
+      display:flex;
+      gap:15px;
+      align-items:center;
     }
 
-    .agent:hover {
-      background: #1f2937;
+    .login{
+      text-decoration:none;
+      color:#111827;
+      font-weight:600;
     }
 
-    .about {
-      background: rgba(255,255,255,0.2);
-      color: white;
+    .agent{
+      background:#1976ff;
+      color:white;
+      padding:12px 22px;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.3s;
     }
 
-    .about:hover {
-      background: rgba(255,255,255,0.3);
+    .agent:hover{
+      background:#005ce6;
     }
 
-    .benefits {
-      background: rgba(255,255,255,0.2);
-      color: white;
+    /* HERO */
+
+    .hero{
+      min-height:85vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:40px 20px;
     }
 
-    .benefits:hover {
-      background: rgba(255,255,255,0.3);
+    .tag{
+      border:1px solid #b9d3ff;
+      color:#1976ff;
+      background:#eef5ff;
+      padding:10px 22px;
+      border-radius:999px;
+      font-weight:500;
+      margin-bottom:35px;
     }
+
+    .hero h1{
+      font-size:78px;
+      line-height:1.05;
+      max-width:1000px;
+      font-weight:800;
+      margin-bottom:25px;
+    }
+
+    .hero h1 span{
+      color:#1976ff;
+    }
+
+    .hero p{
+      max-width:900px;
+      font-size:32px;
+      color:#4b5563;
+      line-height:1.6;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:1000px){
+
+      header{
+        flex-direction:column;
+        gap:20px;
+      }
+
+      nav{
+        flex-wrap:wrap;
+        justify-content:center;
+      }
+
+      .hero h1{
+        font-size:52px;
+      }
+
+      .hero p{
+        font-size:22px;
+      }
+
+    }
+
   </style>
 </head>
 
 <body>
 
-  <h1>PROP CODE 🏡</h1>
-  <p>Plataforma inmobiliaria inteligente en Cochabamba</p>
+  <header>
 
-  <div class="buttons">
+    <div class="logo">
+      <div class="logo-box"></div>
+      PROP <span>CODE</span>
+    </div>
 
-    <button class="map">🗺️ Mapa interactivo</button>
+    <nav>
+      <a href="#">Quiénes somos</a>
+      <a href="#">Beneficios</a>
+      <a href="#">Cómo funciona</a>
+      <a href="#">Contacto</a>
+    </nav>
 
-    <button class="user">👤 Entrar como usuario</button>
+    <div class="buttons">
+      <a href="#" class="login">Entrar como Usuario</a>
+      <a href="#" class="agent">Entrar como Agente</a>
+    </div>
 
-    <button class="agent">🧑‍💼 Entrar como agente inmobiliario</button>
+  </header>
 
-    <button class="about">ℹ️ Quiénes somos</button>
+  <section class="hero">
 
-    <button class="benefits">⭐ Beneficios</button>
+    <div class="tag">
+      ⚡ Plataforma inmobiliaria de Bolivia
+    </div>
 
-  </div>
+    <h1>
+      Encuentra tu próxima
+      propiedad en <span>PROP CODE</span>
+    </h1>
+
+    <p>
+      Anticrético, alquiler o compra. Explora propiedades en Cochabamba
+      con un mapa interactivo, filtros inteligentes y agentes verificados.
+    </p>
+
+  </section>
 
 </body>
 </html>
