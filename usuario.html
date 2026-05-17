@@ -1,703 +1,148 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PROP CODE</title>
-
-<link rel="stylesheet"
-href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-
-<style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, Helvetica, sans-serif;
-}
-
-body{
-  display:flex;
-  background:#f5f5f5;
-  overflow:hidden;
-}
-
-/* SIDEBAR */
-
-.sidebar{
-
-  width:240px;
-  height:100vh;
-
-  background:white;
-
-  padding:30px 25px;
-
-  box-shadow:0 0 15px rgba(0,0,0,.08);
-
-  z-index:999;
-}
-
-.logo{
-
-  font-size:48px;
-  font-weight:bold;
-
-  line-height:1.1;
-
-  margin-bottom:60px;
-}
-
-.logo span{
-  color:#2563eb;
-}
-
-.menu{
-
-  display:flex;
-  flex-direction:column;
-
-  gap:35px;
-}
-
-.menu a{
-
-  text-decoration:none;
-
-  color:#334155;
-
-  font-size:22px;
-
-  font-weight:bold;
-
-  transition:.3s;
-
-  cursor:pointer;
-}
-
-.menu a:hover{
-
-  color:#2563eb;
-
-  transform:translateX(5px);
-}
-
-/* MAIN */
-
-.main{
-
-  flex:1;
-
-  padding:25px;
-
-  overflow:auto;
-}
-
-.titulo{
-
-  text-align:center;
-
-  margin-bottom:30px;
-
-  font-size:50px;
-
-  color:#0f172a;
-}
-
-/* FILTROS */
-
-.filtros{
-
-  display:flex;
-
-  gap:15px;
-
-  flex-wrap:wrap;
-
-  justify-content:center;
-
-  margin-bottom:25px;
-}
-
-.filtros input,
-.filtros select,
-.filtros button{
-
-  padding:15px;
-
-  border-radius:15px;
-
-  border:1px solid #d1d5db;
-
-  min-width:170px;
-
-  font-size:15px;
-}
-
-.filtros button{
-
-  background:#2563eb;
-
-  color:white;
-
-  border:none;
-
-  cursor:pointer;
-
-  font-weight:bold;
-}
-
-/* MAPA */
-
-.map-container{
-
-  position:relative;
-}
-
-#map{
-
-  height:78vh;
-
-  border-radius:30px;
-
-  overflow:hidden;
-
-  z-index:1;
-}
-
-/* CARD */
-
-.card{
-
-  position:absolute;
-
-  top:20px;
-  right:20px;
-
-  width:360px;
-
-  background:white;
-
-  border-radius:25px;
-
-  overflow:hidden;
-
-  box-shadow:0 10px 30px rgba(0,0,0,.15);
-
-  display:none;
-
-  z-index:1000;
-}
-
-.card img{
-
-  width:100%;
-
-  height:220px;
-
-  object-fit:cover;
-}
-
-.card-body{
-
-  padding:20px;
-}
-
-.precio{
-
-  font-size:42px;
-
-  color:#2563eb;
-
-  font-weight:bold;
-
-  margin:15px 0;
-}
-
-.tipo{
-
-  display:inline-block;
-
-  padding:8px 15px;
-
-  border-radius:20px;
-
-  background:#dcfce7;
-
-  color:green;
-
-  font-weight:bold;
-}
-
-.detalles{
-
-  display:grid;
-
-  grid-template-columns:1fr 1fr;
-
-  gap:10px;
-
-  margin:20px 0;
-}
-
-.detalle{
-
-  background:#f1f5f9;
-
-  padding:15px;
-
-  border-radius:12px;
-}
-
-.descripcion{
-
-  color:#64748b;
-
-  line-height:1.6;
-
-  margin-top:10px;
-}
-
-.btn{
-
-  width:100%;
-
-  margin-top:20px;
-
-  padding:15px;
-
-  border:none;
-
-  border-radius:12px;
-
-  background:#2563eb;
-
-  color:white;
-
-  font-weight:bold;
-
-  cursor:pointer;
-}
-
-/* FAVORITOS */
-
-#favoritosCard{
-
-  position:absolute;
-
-  top:20px;
-  left:20px;
-
-  width:320px;
-
-  background:white;
-
-  border-radius:25px;
-
-  box-shadow:0 10px 30px rgba(0,0,0,.15);
-
-  display:none;
-
-  z-index:1000;
-
-  padding:20px;
-}
-
-.favorito-item{
-
-  display:flex;
-
-  gap:10px;
-
-  margin-bottom:15px;
-
-  background:#f8fafc;
-
-  padding:10px;
-
-  border-radius:12px;
-}
-
-.favorito-item img{
-
-  width:70px;
-  height:70px;
-
-  object-fit:cover;
-
-  border-radius:10px;
-}
-
-@media(max-width:1200px){
-
-  body{
-    flex-direction:column;
-  }
-
-  .sidebar{
-
-    width:100%;
-    height:auto;
-  }
-
-  #map{
-
-    height:70vh;
-  }
-
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="sidebar">
-
-  <div class="logo">
-    PROP <span>CODE</span>
-  </div>
-
-  <div class="menu">
-
-    <a>🏠 Inicio</a>
-
-    <a id="btnFavoritos">
-      ❤️ Favoritos
-    </a>
-
-    <a>📍 Mapa</a>
-
-    <a>⚖️ Comparador</a>
-
-    <a>👤 Perfil</a>
-
-  </div>
-
-</div>
-
-<div class="main">
-
-  <h1 class="titulo">
-    Mapa interactivo
-  </h1>
-
-  <div class="filtros">
-
-    <input type="text"
-    placeholder="📍 Ubicación">
-
-    <select id="tipo">
-
-      <option value="todos">
-        Tipo inmobiliario
-      </option>
-
-      <option value="venta">
-        Venta
-      </option>
-
-      <option value="alquiler">
-        Alquiler
-      </option>
-
-      <option value="anticretico">
-        Anticrético
-      </option>
-
-    </select>
-
-    <select id="zona">
-
-      <option value="todas">
-        Zona
-      </option>
-
-      <option value="norte">
-        Norte
-      </option>
-
-      <option value="sur">
-        Sur
-      </option>
-
-      <option value="centro">
-        Centro
-      </option>
-
-      <option value="oeste">
-        Oeste
-      </option>
-
-    </select>
-
-    <button onclick="filtrar()">
-      Buscar
-    </button>
-
-  </div>
-
-  <div class="map-container">
-
-    <div id="map"></div>
-
-    <!-- CARD -->
-
-    <div class="card" id="card">
-
-      <img id="imgCasa" src="">
-
-      <div class="card-body">
-
-        <div class="tipo" id="tipoCasa">
-          Venta
-        </div>
-
-        <div class="precio" id="precioCasa">
-          $120.000
-        </div>
-
-        <button class="btn" id="guardarBtn">
-          Guardar favorito
-        </button>
-
-      </div>
-
-    </div>
-
-    <!-- FAVORITOS -->
-
-    <div id="favoritosCard">
-
-      <h2 style="margin-bottom:20px;">
-        ❤️ Favoritos
-      </h2>
-
-      <div id="listaFavoritos">
-
-        <p>No tienes favoritos.</p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
 <script>
 
 /* MAPA */
 
-let map = L.map('map')
-.setView([-17.393,-66.157],13);
+const map = L.map('map').setView([-17.3935, -66.1570], 13);
 
-L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
-  attribution:'PROP CODE'
-}
-).addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: 'PROP CODE'
+}).addTo(map);
 
-/* DATOS */
+/* PINES */
 
-let propiedades = [
-
-{
-  titulo:"Casa Norte",
-  tipo:"venta",
-  zona:"norte",
-  precio:"$120.000",
-  lat:-17.385,
-  lng:-66.145,
-  color:"green",
-  img:"https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop"
-},
-
-{
-  titulo:"Departamento Centro",
-  tipo:"alquiler",
-  zona:"centro",
-  precio:"$80.000",
-  lat:-17.393,
-  lng:-66.157,
-  color:"blue",
-  img:"https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop"
-}
-
-];
-
-let markers=[];
-let favoritos=[];
-let propiedadActual=null;
-
-/* ICONOS */
-
-function crearIcono(color){
-
+function crearPin(colorClase){
   return L.divIcon({
-
-    html:`
-      <div style="
-        background:${color};
-        width:18px;
-        height:18px;
-        border-radius:50%;
-        border:3px solid white;
-      "></div>
-    `,
-
-    className:""
-
+    className: '',
+    html: `<div class="pin ${colorClase}"></div>`,
+    iconSize: [20, 20]
   });
-
 }
 
-/* MOSTRAR */
+const rojo = crearPin('pin-rojo');
+const azul = crearPin('pin-azul');
+const verde = crearPin('pin-verde');
 
-function mostrar(data){
+/* CARD */
 
-  markers.forEach(m=>map.removeLayer(m));
+const card = document.getElementById("card");
 
-  markers=[];
+/* MODAL */
 
-  data.forEach(p=>{
+const modal = document.getElementById("modal");
 
-    let marker = L.marker(
-      [p.lat,p.lng],
-      {
-        icon:crearIcono(p.color)
-      }
-    ).addTo(map);
-
-    marker.on('click',()=>{
-
-      propiedadActual = p;
-
-      document.getElementById("card")
-      .style.display="block";
-
-      document.getElementById("precioCasa")
-      .innerHTML = p.precio;
-
-      document.getElementById("tipoCasa")
-      .innerHTML = p.tipo;
-
-      document.getElementById("imgCasa")
-      .src = p.img;
-
-    });
-
-    markers.push(marker);
-
-  });
-
+function abrirFormulario(){
+  modal.style.display = "flex";
 }
 
-/* FILTRO */
-
-function filtrar(){
-
-  let tipo =
-  document.getElementById("tipo").value;
-
-  let zona =
-  document.getElementById("zona").value;
-
-  let filtradas = propiedades.filter(p=>{
-
-    let okTipo =
-      tipo==="todos" || p.tipo===tipo;
-
-    let okZona =
-      zona==="todas" || p.zona===zona;
-
-    return okTipo && okZona;
-
-  });
-
-  mostrar(filtradas);
-
+function cerrarFormulario(){
+  modal.style.display = "none";
 }
 
-/* FAVORITOS */
+/* CONTROL CARD */
 
-document.getElementById("btnFavoritos")
-.addEventListener("click",()=>{
+let pinActivo = null;
 
-  let panel =
-  document.getElementById("favoritosCard");
+function manejarCard(pinId){
 
-  if(panel.style.display==="block"){
+  if(pinActivo === pinId){
 
-    panel.style.display="none";
+    card.style.display = "none";
 
-  }else{
+    pinActivo = null;
 
-    panel.style.display="block";
+  } else {
 
+    card.style.display = "block";
+
+    pinActivo = pinId;
   }
+}
+
+/* ================= FAVORITOS ================= */
+
+function guardarFavorito(){
+
+  const propiedad = {
+
+    titulo: "Casa moderna en Cala Cala",
+
+    precio: 120000,
+
+    precioAnterior: 140000,
+
+    descuento: "15%",
+
+    tipo: "Casa",
+
+    habitaciones: 3,
+
+    baños: 2,
+
+    ubicacion: "Cochabamba",
+
+    imagen: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200"
+
+  };
+
+  let favoritos =
+  JSON.parse(localStorage.getItem("favoritos")) || [];
+
+  /* EVITAR DUPLICADOS */
+
+  const existe = favoritos.some(f =>
+    f.titulo === propiedad.titulo
+  );
+
+  if(!existe){
+
+    favoritos.push(propiedad);
+
+    localStorage.setItem(
+      "favoritos",
+      JSON.stringify(favoritos)
+    );
+
+    alert("❤️ Guardado en favoritos");
+
+  } else {
+
+    alert("⚠️ Ya está en favoritos");
+  }
+
+}
+
+/* HACER FUNCIONES GLOBALES */
+
+window.guardarFavorito = guardarFavorito;
+
+window.abrirFormulario = abrirFormulario;
+
+window.cerrarFormulario = cerrarFormulario;
+
+/* MARKERS */
+
+L.marker([-17.3835, -66.1500], {icon: rojo})
+.addTo(map)
+.on('click', function(){
+
+  manejarCard("pin1");
 
 });
 
-/* GUARDAR */
+L.marker([-17.4000, -66.1700], {icon: azul})
+.addTo(map)
+.on('click', function(){
 
-document.getElementById("guardarBtn")
-.addEventListener("click",()=>{
-
-  if(!propiedadActual) return;
-
-  favoritos.push(propiedadActual);
-
-  renderFavoritos();
+  manejarCard("pin2");
 
 });
 
-/* RENDER */
+L.marker([-17.3700, -66.1400], {icon: verde})
+.addTo(map)
+.on('click', function(){
 
-function renderFavoritos(){
+  manejarCard("pin3");
 
-  let lista =
-  document.getElementById("listaFavoritos");
-
-  if(favoritos.length===0){
-
-    lista.innerHTML =
-    "<p>No tienes favoritos.</p>";
-
-    return;
-  }
-
-  lista.innerHTML = favoritos.map(f=>`
-
-    <div class="favorito-item">
-
-      <img src="${f.img}">
-
-      <div>
-
-        <strong>${f.precio}</strong>
-
-        <p>${f.tipo}</p>
-
-      </div>
-
-    </div>
-
-  `).join("");
-
-}
-
-/* INICIO */
-
-mostrar(propiedades);
+});
 
 </script>
-
-</body>
-</html>
