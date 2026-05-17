@@ -1,474 +1,72 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- MAPA -->
 
-<title>Usuario | PROP CODE</title>
+<section class="mapa" id="mapa">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <h2>Mapa interactivo</h2>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <!-- FILTROS -->
 
-<style>
+  <div class="filtros">
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins', sans-serif;
-}
+    <input type="text" placeholder="📍 Ubicación" class="input-filtro">
 
-body{
-  background:#f5f7fb;
-  display:flex;
-}
+    <select class="input-filtro">
+      <option>Tipo inmobiliario</option>
+      <option>Anticrético</option>
+      <option>Alquiler</option>
+      <option>Compra</option>
+    </select>
 
-/* SIDEBAR */
+    <select class="input-filtro">
+      <option>Tipo de vivienda</option>
+      <option>Casa</option>
+      <option>Departamento</option>
+      <option>Habitación</option>
+      <option>Oficina / Tienda</option>
+    </select>
 
-.sidebar{
-  width:280px;
-  height:100vh;
-  background:white;
-  border-right:1px solid #e5e7eb;
-  padding:35px 25px;
-  position:fixed;
-  left:0;
-  top:0;
-  overflow:auto;
-  z-index:1000;
-}
+    <input type="number" placeholder="Precio mínimo" class="input-filtro">
 
-.logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:50px;
-}
+    <input type="number" placeholder="Precio máximo" class="input-filtro">
 
-.logo-box{
-  width:45px;
-  height:45px;
-  background:#1976ff;
-  border-radius:12px;
-}
+    <select class="input-filtro">
+      <option># Habitaciones</option>
+      <option>1 habitación</option>
+      <option>2 habitaciones</option>
+      <option>3 habitaciones</option>
+      <option>4 habitaciones</option>
+      <option>5+ habitaciones</option>
+    </select>
 
-.logo h1{
-  font-size:30px;
-  font-weight:800;
-}
+    <button class="buscar-btn">
+      Buscar
+    </button>
 
-.logo span{
-  color:#1976ff;
-}
-
-.menu{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-.menu a{
-  text-decoration:none;
-  color:#334155;
-  padding:16px 18px;
-  border-radius:16px;
-  font-weight:600;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.menu a:hover{
-  background:#eef5ff;
-  color:#1976ff;
-}
-
-/* MAIN */
-
-.main{
-  margin-left:280px;
-  width:calc(100% - 280px);
-  padding:30px;
-}
-
-/* TOPBAR */
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:30px;
-}
-
-.avatar{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  background:#1976ff;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-weight:700;
-}
-
-/* MAPA */
-
-.mapa{
-  background:white;
-  padding:25px;
-  border-radius:32px;
-  box-shadow:0 10px 35px rgba(0,0,0,0.08);
-}
-
-#map{
-  width:100%;
-  height:78vh;
-  border-radius:28px;
-  z-index:1;
-}
-
-/* CARD */
-
-.card-propiedad{
-  position:fixed;
-  right:25px;
-  bottom:25px;
-  width:380px;
-  background:white;
-  border-radius:28px;
-  overflow:hidden;
-  box-shadow:0 15px 45px rgba(0,0,0,0.25);
-  display:none;
-  z-index:9999;
-}
-
-.card-header{
-  background:#1976ff;
-  color:white;
-  padding:20px;
-}
-
-.card-body{
-  padding:20px;
-}
-
-.card-body p{
-  margin:10px 0;
-  color:#475569;
-}
-
-/* COMPARADOR */
-
-.comparador{
-  position:fixed;
-  top:80px;
-  left:50%;
-  transform:translateX(-50%);
-  width:90%;
-  max-width:900px;
-  background:white;
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.2);
-  display:none;
-  z-index:99999;
-}
-
-.comparador-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.cerrar{
-  background:red;
-  color:white;
-  border:none;
-  padding:8px 14px;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-.comparador select{
-  padding:10px;
-  margin:10px;
-  border-radius:10px;
-  border:1px solid #ddd;
-}
-
-.comparador button{
-  padding:10px 15px;
-  background:#1976ff;
-  color:white;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:15px;
-}
-
-th,td{
-  border:1px solid #eee;
-  padding:12px;
-  text-align:center;
-}
-
-th{
-  background:#1976ff;
-  color:white;
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- SIDEBAR -->
-
-<div class="sidebar">
-
-  <div class="logo">
-    <div class="logo-box"></div>
-    <h1>PROP <span>CODE</span></h1>
   </div>
 
-  <div class="menu">
-    <a>🏠 Inicio</a>
-    <a>❤ Favoritos</a>
-    <a onclick="abrirComparador()">⚖ Comparador</a>
-    <a>📍 Mapa</a>
-    <a>👤 Perfil</a>
+  <!-- LEYENDA -->
+
+  <div class="leyenda">
+
+    <div class="item">
+      <div class="color rojo"></div>
+      Anticrético
+    </div>
+
+    <div class="item">
+      <div class="color azul"></div>
+      Alquiler
+    </div>
+
+    <div class="item">
+      <div class="color verde"></div>
+      Venta
+    </div>
+
   </div>
 
-</div>
+  <!-- MAPA -->
 
-<!-- MAIN -->
+  <div id="map"></div>
 
-<div class="main">
-
-  <div class="topbar">
-    <div>
-      <h2>Bienvenida Adriana 👋</h2>
-      <p>Explora propiedades inteligentes en Cochabamba</p>
-    </div>
-
-    <div class="avatar">
-      A
-    </div>
-  </div>
-
-  <section class="mapa">
-    <div id="map"></div>
-  </section>
-
-</div>
-
-<!-- CARD PROPIEDAD -->
-
-<div class="card-propiedad" id="card"></div>
-
-<!-- COMPARADOR -->
-
-<div class="comparador" id="comparador">
-
-  <div class="comparador-top">
-    <h2>⚖ Comparador de Propiedades</h2>
-    <button class="cerrar" onclick="cerrarComparador()">X</button>
-  </div>
-
-  <select id="p1"></select>
-  <select id="p2"></select>
-
-  <button onclick="comparar()">Comparar</button>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Campo</th>
-        <th>Propiedad 1</th>
-        <th>Propiedad 2</th>
-      </tr>
-    </thead>
-
-    <tbody id="tabla"></tbody>
-
-  </table>
-
-</div>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script>
-
-/* ================= MAPA ================= */
-
-const map = L.map('map').setView([-17.3935,-66.1570],13);
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution:'© OpenStreetMap'
-  }
-).addTo(map);
-
-const card = document.getElementById("card");
-
-/* ================= PROPIEDADES ================= */
-
-const propiedades = {
-
-  pin1:{
-    nombre:"Casa Cala Cala",
-    precio:"$120.000",
-    tipo:"Casa",
-    habitaciones:"3",
-    baños:"2"
-  },
-
-  pin2:{
-    nombre:"Depto Centro",
-    precio:"$3.500",
-    tipo:"Departamento",
-    habitaciones:"2",
-    baños:"1"
-  },
-
-  pin3:{
-    nombre:"Casa Sur",
-    precio:"$95.000",
-    tipo:"Casa",
-    habitaciones:"4",
-    baños:"3"
-  }
-
-};
-
-/* ================= MOSTRAR CARD ================= */
-
-function mostrarCard(pin){
-
-  card.innerHTML = `
-
-    <div class="card-header">
-      <h2>${propiedades[pin].nombre}</h2>
-    </div>
-
-    <div class="card-body">
-
-      <p><strong>Precio:</strong> ${propiedades[pin].precio}</p>
-
-      <p><strong>Tipo:</strong> ${propiedades[pin].tipo}</p>
-
-      <p><strong>Habitaciones:</strong> ${propiedades[pin].habitaciones}</p>
-
-      <p><strong>Baños:</strong> ${propiedades[pin].baños}</p>
-
-    </div>
-
-  `;
-
-  card.style.display = "block";
-}
-
-/* ================= MARCADORES ================= */
-
-L.marker([-17.38,-66.15])
-.addTo(map)
-.on("click",()=>mostrarCard("pin1"));
-
-L.marker([-17.40,-66.17])
-.addTo(map)
-.on("click",()=>mostrarCard("pin2"));
-
-L.marker([-17.37,-66.14])
-.addTo(map)
-.on("click",()=>mostrarCard("pin3"));
-
-/* ================= COMPARADOR ================= */
-
-function abrirComparador(){
-
-  document.getElementById("comparador").style.display="block";
-
-  cargarSelects();
-}
-
-function cerrarComparador(){
-
-  document.getElementById("comparador").style.display="none";
-}
-
-function cargarSelects(){
-
-  const p1 = document.getElementById("p1");
-  const p2 = document.getElementById("p2");
-
-  p1.innerHTML = "";
-  p2.innerHTML = "";
-
-  for(let key in propiedades){
-
-    p1.innerHTML += `
-      <option value="${key}">
-        ${propiedades[key].nombre}
-      </option>
-    `;
-
-    p2.innerHTML += `
-      <option value="${key}">
-        ${propiedades[key].nombre}
-      </option>
-    `;
-  }
-}
-
-function comparar(){
-
-  const a = document.getElementById("p1").value;
-  const b = document.getElementById("p2").value;
-
-  document.getElementById("tabla").innerHTML = `
-
-    <tr>
-      <td>Nombre</td>
-      <td>${propiedades[a].nombre}</td>
-      <td>${propiedades[b].nombre}</td>
-    </tr>
-
-    <tr>
-      <td>Precio</td>
-      <td>${propiedades[a].precio}</td>
-      <td>${propiedades[b].precio}</td>
-    </tr>
-
-    <tr>
-      <td>Tipo</td>
-      <td>${propiedades[a].tipo}</td>
-      <td>${propiedades[b].tipo}</td>
-    </tr>
-
-    <tr>
-      <td>Habitaciones</td>
-      <td>${propiedades[a].habitaciones}</td>
-      <td>${propiedades[b].habitaciones}</td>
-    </tr>
-
-    <tr>
-      <td>Baños</td>
-      <td>${propiedades[a].baños}</td>
-      <td>${propiedades[b].baños}</td>
-    </tr>
-
-  `;
-}
-
-</script>
-
-</body>
-</html>
+</section>
