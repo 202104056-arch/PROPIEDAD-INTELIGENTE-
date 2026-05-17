@@ -16,6 +16,8 @@
 
 <style>
 
+/* GENERAL */
+
 *{
   margin:0;
   padding:0;
@@ -164,10 +166,6 @@ nav a{
   background:white;
 }
 
-.input-filtro:focus{
-  border-color:#1976ff;
-}
-
 .buscar-btn{
   background:#1976ff;
   color:white;
@@ -243,32 +241,139 @@ nav a{
   background:green;
 }
 
-html{
-  scroll-behavior:smooth;
+/* CARD ESTILO GOOGLE MAPS */
+
+.card-propiedad{
+  position:fixed;
+  right:25px;
+  bottom:25px;
+  width:380px;
+  background:white;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 15px 45px rgba(0,0,0,0.2);
+  z-index:9999;
+  display:none;
 }
 
-/* RESPONSIVE */
+.card-propiedad img{
+  width:100%;
+  height:230px;
+  object-fit:cover;
+}
 
-@media(max-width:1000px){
+.favorito{
+  position:absolute;
+  top:18px;
+  right:18px;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  cursor:pointer;
+}
 
-  header{
-    flex-direction:column;
-    gap:20px;
-  }
+.contenido-card{
+  padding:22px;
+}
 
-  nav{
-    flex-wrap:wrap;
-    justify-content:center;
-  }
+.precio-box{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-  .hero h1{
-    font-size:52px;
-  }
+.precio-anterior{
+  text-decoration:line-through;
+  color:#999;
+  font-size:18px;
+}
 
-  .hero p{
-    font-size:22px;
-  }
+.precio{
+  font-size:42px;
+  color:#1976ff;
+  font-weight:800;
+}
 
+.descuento{
+  background:#e8fff0;
+  color:#0c9b4f;
+  padding:10px 14px;
+  border-radius:14px;
+  font-weight:700;
+}
+
+.interes{
+  margin-top:12px;
+  color:#ff6b00;
+  font-weight:600;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
+
+.info-item{
+  background:#f5f7fb;
+  padding:14px;
+  border-radius:14px;
+}
+
+.descripcion{
+  margin-top:22px;
+  color:#555;
+  line-height:1.7;
+}
+
+.galeria{
+  display:flex;
+  gap:10px;
+  margin-top:22px;
+}
+
+.galeria img{
+  width:100px;
+  height:75px;
+  border-radius:14px;
+  object-fit:cover;
+}
+
+.botones-card{
+  display:flex;
+  gap:12px;
+  margin-top:25px;
+}
+
+.btn-favorito{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#f1f5f9;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.btn-ver{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#1976ff;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 </style>
@@ -313,8 +418,6 @@ html{
 
 </section>
 
-<!-- MAPA -->
-
 <section class="mapa" id="mapa">
 
   <h2>Mapa interactivo</h2>
@@ -323,11 +426,7 @@ html{
 
   <div class="filtros">
 
-    <input 
-      type="text" 
-      placeholder="📍 Buscar ubicación..."
-      class="input-filtro"
-    >
+    <input type="text" placeholder="📍 Ubicación" class="input-filtro">
 
     <select class="input-filtro">
       <option>Tipo inmobiliario</option>
@@ -344,17 +443,9 @@ html{
       <option>Oficina / Tienda</option>
     </select>
 
-    <input 
-      type="number" 
-      placeholder="Precio mínimo"
-      class="input-filtro"
-    >
+    <input type="number" placeholder="Precio mínimo" class="input-filtro">
 
-    <input 
-      type="number" 
-      placeholder="Precio máximo"
-      class="input-filtro"
-    >
+    <input type="number" placeholder="Precio máximo" class="input-filtro">
 
     <select class="input-filtro">
       <option># Habitaciones</option>
@@ -396,6 +487,99 @@ html{
 
 </section>
 
+<!-- CARD -->
+
+<div class="card-propiedad" id="card">
+
+  <div class="favorito">
+    ♡
+  </div>
+
+  <img 
+    src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200"
+  >
+
+  <div class="contenido-card">
+
+    <div class="precio-box">
+
+      <div>
+
+        <p class="precio-anterior">
+          $140.000
+        </p>
+
+        <h2 class="precio">
+          $120.000
+        </h2>
+
+      </div>
+
+      <div class="descuento">
+        ↓ 15%
+      </div>
+
+    </div>
+
+    <div class="interes">
+      🔥 84 personas guardaron esta propiedad
+    </div>
+
+    <div class="info-grid">
+
+      <div class="info-item">
+        🏠 Casa
+      </div>
+
+      <div class="info-item">
+        📐 240 m²
+      </div>
+
+      <div class="info-item">
+        🛏 3 habitaciones
+      </div>
+
+      <div class="info-item">
+        🚿 2 baños
+      </div>
+
+    </div>
+
+    <p class="descripcion">
+
+      Hermosa casa moderna ubicada en Cala Cala,
+      cerca de supermercados, colegios y transporte.
+      Cuenta con ambientes amplios, iluminación natural
+      y jardín privado.
+
+    </p>
+
+    <div class="galeria">
+
+      <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200">
+
+      <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200">
+
+      <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200">
+
+    </div>
+
+    <div class="botones-card">
+
+      <button class="btn-favorito">
+        ❤ Guardar
+      </button>
+
+      <button class="btn-ver">
+        Ver propiedad
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
@@ -408,7 +592,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:'PROP CODE'
 }).addTo(map);
 
-/* CREAR PINES */
+/* PINES */
 
 function crearPin(colorClase){
 
@@ -424,31 +608,35 @@ const rojo = crearPin('pin-rojo');
 const azul = crearPin('pin-azul');
 const verde = crearPin('pin-verde');
 
-/* PINES EN EL MAPA */
+/* CARD */
+
+const card = document.getElementById("card");
+
+/* MARKERS */
 
 L.marker([-17.3835, -66.1500], {icon: rojo})
 .addTo(map)
-.bindPopup("Anticrético en Cala Cala");
+.on('click', function(){
+
+  card.style.display = "block";
+
+});
 
 L.marker([-17.4000, -66.1700], {icon: azul})
 .addTo(map)
-.bindPopup("Departamento en alquiler");
+.on('click', function(){
+
+  card.style.display = "block";
+
+});
 
 L.marker([-17.3700, -66.1400], {icon: verde})
 .addTo(map)
-.bindPopup("Casa en venta");
+.on('click', function(){
 
-L.marker([-17.3950, -66.1300], {icon: rojo})
-.addTo(map)
-.bindPopup("Anticrético zona norte");
+  card.style.display = "block";
 
-L.marker([-17.4100, -66.1600], {icon: azul})
-.addTo(map)
-.bindPopup("Alquiler temporal");
-
-L.marker([-17.3850, -66.1800], {icon: verde})
-.addTo(map)
-.bindPopup("Terreno en venta");
+});
 
 </script>
 
