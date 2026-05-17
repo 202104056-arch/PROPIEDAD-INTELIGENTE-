@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mi Página Azul</title>
+  <title>PROP CODE</title>
 
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #1e3a8a; /* azul */
+      background: #1e3a8a;
       color: white;
       display: flex;
       flex-direction: column;
@@ -21,51 +21,96 @@
 
     h1 {
       font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    p {
       margin-bottom: 40px;
+      color: #dbeafe;
     }
 
     .buttons {
-      display: flex;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      width: 80%;
+      max-width: 700px;
     }
 
     button {
-      padding: 15px 25px;
+      padding: 15px;
       border: none;
       border-radius: 12px;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
       font-weight: bold;
       transition: 0.3s;
     }
 
-    .btn1 {
-      background: white;
-      color: #1e3a8a;
-    }
-
-    .btn1:hover {
-      background: #e2e8f0;
-    }
-
-    .btn2 {
+    .map {
       background: #38bdf8;
       color: white;
     }
 
-    .btn2:hover {
+    .map:hover {
       background: #0ea5e9;
+    }
+
+    .user {
+      background: white;
+      color: #1e3a8a;
+    }
+
+    .user:hover {
+      background: #e2e8f0;
+    }
+
+    .agent {
+      background: #0f172a;
+      color: white;
+    }
+
+    .agent:hover {
+      background: #1f2937;
+    }
+
+    .about {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .about:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .benefits {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .benefits:hover {
+      background: rgba(255,255,255,0.3);
     }
   </style>
 </head>
 
 <body>
 
-  <h1>Bienvenido a mi página</h1>
+  <h1>PROP CODE 🏡</h1>
+  <p>Plataforma inmobiliaria inteligente en Cochabamba</p>
 
   <div class="buttons">
-    <button class="btn1">Quiénes Somos</button>
-    <button class="btn2">Beneficios</button>
+
+    <button class="map">🗺️ Mapa interactivo</button>
+
+    <button class="user">👤 Entrar como usuario</button>
+
+    <button class="agent">🧑‍💼 Entrar como agente inmobiliario</button>
+
+    <button class="about">ℹ️ Quiénes somos</button>
+
+    <button class="benefits">⭐ Beneficios</button>
+
   </div>
 
 </body>
